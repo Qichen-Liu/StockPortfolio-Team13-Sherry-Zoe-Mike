@@ -1,0 +1,21 @@
+create table markets (
+	market_id int auto_increment primary key,
+    market_name varchar(50) not null,
+    contry varchar(50)
+);
+
+create table stocks (
+	stock_id int auto_increment primary key,
+    stock_symbol varchar(50) not null unique,
+    stock_name varchar(50) not null,
+    market_id int,
+    foreign key (market_id) references markets(market_id)
+);
+
+create table stock_prices (
+	price_id int auto_increment primary key,
+	stock_id int,
+    price decimal(10, 2) not null,
+    price_date date,
+    foreign key (stock_id) references stocks(stock_id)
+);
