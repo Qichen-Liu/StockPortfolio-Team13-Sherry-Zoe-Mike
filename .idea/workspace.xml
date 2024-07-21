@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="attached sql files">
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Tables" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Tables" afterDir="false" />
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="fix typo">
+      <change afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -52,12 +55,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Python.app.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\homework\app" />
       <recent name="C:\homework\MySQL" />
     </key>
   </component>
@@ -101,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721595149076</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix typo">
+      <option name="closed" value="true" />
+      <created>1721595266381</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1721595266381</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,6 +144,7 @@
     <MESSAGE value="create the app" />
     <MESSAGE value="restructure" />
     <MESSAGE value="attached sql files" />
-    <option name="LAST_COMMIT_MESSAGE" value="attached sql files" />
+    <MESSAGE value="fix typo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix typo" />
   </component>
 </project>
