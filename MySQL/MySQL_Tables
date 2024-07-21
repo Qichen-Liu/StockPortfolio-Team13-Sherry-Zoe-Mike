@@ -1,7 +1,7 @@
 create table markets (
 	market_id int auto_increment primary key,
     market_name varchar(50) not null,
-    contry varchar(50)
+    country varchar(50)
 );
 
 create table stocks (
