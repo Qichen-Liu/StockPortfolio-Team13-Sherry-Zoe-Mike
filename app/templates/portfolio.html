@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+</head>
+<body>
+    <h1>Portfolio</h1>
+    <p>Balance: {{ balance }}</p>
+    <p>Total Value: {{ total_value }}</p>
+    <table border="1">
+        <tr>
+            <th>Symbol</th>
+            <th>Stock Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.symbol }}</td>
+            <td>{{ stock.stock_name }}</td>
+            <td>{{ stock.quantity }}</td>
+            <td>{{ stock.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
