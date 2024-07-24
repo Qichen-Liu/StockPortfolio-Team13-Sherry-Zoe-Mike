@@ -73,16 +73,16 @@ def buy_stock(portfolio_id):
     quantity = data.get('quantity')
 
     try:
-        # Update the transection table
-        transection_query = """
-        INSERT INTO transections (portfolio_id, stock_id, transection_type, quantity) VALUES (%s, %s, 'buy', %s)
+        # Update the transaction table
+        transaction_query = """
+        INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'buy', %s)
         """, (portfolio_id, stock_id, quantity)
-        execute_query(transection_query)
+        execute_query(transaction_query)
 
         # Get the stock price
         stock_query = """
         select price from stocks where id = %s
-        """, (stock_id)
+        """, stock_id
         stock_info = execute_query(stock_query)
 
         # Update the portfolio_stock table
@@ -113,16 +113,16 @@ def sell_stock(portfolio_id):
     quantity = data.get('quantity')
 
     try:
-        # Update the transection table
+        # Update the transaction table
         transection_query = """
-        INSERT INTO transections (portfolio_id, stock_id, transection_type, quantity) VALUES (%s, %s, 'sell', %s)
+        INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'sell', %s)
         """, (portfolio_id, stock_id, quantity)
         execute_query(transection_query)
 
         # Get the stock price
         stock_query = """
         select price from stocks where id = %s
-        """, (stock_id)
+        """, stock_id
         stock_info = execute_query(stock_query)
 
         # Update the portfolio_stock table

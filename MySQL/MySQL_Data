@@ -13,7 +13,7 @@ INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALU
 ('Apple Inc.', 1, 1, 10),
 ('Alphabet Inc.', 1, 2, 5);
 
--- Insert data into the 'transections' table
-INSERT INTO transections (portfolio_id, stock_id, transection_type, quantity) VALUES
+-- Insert data into the 'transactions' table
+INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES
 (1, 1, 'buy', 10),
 (1, 2, 'buy', 5);
