@@ -1,21 +1,33 @@
-create table markets (
-	market_id int auto_increment primary key,
-    market_name varchar(50) not null,
-    country varchar(50)
-);
-
 create table stocks (
-	stock_id int auto_increment primary key,
-    stock_symbol varchar(50) not null unique,
-    stock_name varchar(50) not null,
-    market_id int,
-    foreign key (market_id) references markets(market_id)
+	id int auto_increment primary key,
+    symbol varchar(10) unique not null,
+    stock_name varchar(100) not null,
+    price decimal(10, 2) not null
 );
 
-create table stock_prices (
-	price_id int auto_increment primary key,
-	stock_id int,
-    price decimal(10, 2) not null,
-    price_date date,
-    foreign key (stock_id) references stocks(stock_id)
+create table portfolio (
+	id int auto_increment primary key,
+    balance decimal(15, 2) not null,
+    total_value decimal(15, 2) not null
 );
+
+create table portfolio_stocks (
+	id int auto_increment primary key,
+	stock_name varchar(100) not null,
+    portfolio_id int,
+    stock_id int,
+    quantity int,
+    foreign key (stock_id) references stocks(id),
+    foreign key (portfolio_id) references portfolio(id)
+);
+
+create table transections (
+	id int auto_increment primary key,
+    portfolio_id int,
+    stock_id int,
+    transection_type enum ('buy', 'sell'),
+    quantity int,
+    transection_date timestamp default current_timestamp,
+    foreign key (stock_id) references stocks(id),
+    foreign key (portfolio_id) references portfolio(id)
+)

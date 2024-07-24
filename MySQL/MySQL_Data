@@ -1,0 +1,19 @@
+-- Insert data into the 'stocks' table
+INSERT INTO stocks (symbol, stock_name, price) VALUES
+('AAPL', 'Apple Inc.', 150.00),
+('GOOGL', 'Alphabet Inc.', 2800.00),
+('AMZN', 'Amazon.com Inc.', 3400.00);
+
+-- Insert data into the 'portfolio' table
+INSERT INTO portfolio (balance, total_value) VALUES
+(10000.00, 15500.00);
+
+-- Insert data into the 'portfolio_stocks' table
+INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES
+('Apple Inc.', 1, 1, 10),
+('Alphabet Inc.', 1, 2, 5);
+
+-- Insert data into the 'transections' table
+INSERT INTO transections (portfolio_id, stock_id, transection_type, quantity) VALUES
+(1, 1, 'buy', 10),
+(1, 2, 'buy', 5);
