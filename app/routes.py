@@ -49,15 +49,19 @@ def home():
 @app.route('/api/portfolio', methods=['GET'])
 def get_portfolio():
     query = """
-    select p.balance, p.total_value, s.symbol, s.stock_name, ps.quantity, s.price
-    from portfolio p join portfolio_stock ps on p.id = ps.portfolio_id
+    select p.user_name, p.email, p.balance, p.total_value, s.symbol, s.stock_name, ps.quantity, s.price
+    from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
     join stocks s on ps.stock_id = s.id
+    where p.id = 1
     """
-    # Execute the query to obatin result
+    # Execute the query to obtain the result
     result = execute_query(query)
     balance = result[0]['balance'] if result else 0
     total_value = result[0]['total_value'] if result else 0
-    return render_template('portfolio.html', balance=balance, total_value=total_value, stocks=result)
+    user_name = result[0]['user_name'] if result else ''
+    email = result[0]['email'] if result else ''
+    return render_template('portfolio.html', user_name=user_name, email=email,
+                           balance=balance, total_value=total_value, stocks=result)
 
 
 # Define the buy stock route

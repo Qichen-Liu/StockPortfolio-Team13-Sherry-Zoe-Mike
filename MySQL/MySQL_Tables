@@ -7,6 +7,8 @@ create table stocks (
 
 create table portfolio (
 	id int auto_increment primary key,
+    user_name varchar(100) not null,
+    email varchar(100) not null,
     balance decimal(15, 2) not null,
     total_value decimal(15, 2) not null
 );
