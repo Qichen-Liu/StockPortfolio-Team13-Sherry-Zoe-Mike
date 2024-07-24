@@ -74,9 +74,9 @@ def get_portfolio():
 # url = /api/portfolio/<portfolio_id>/buy?stock_id=<stock_id>&quantity=<quantity>
 @app.route('/api/portfolio/<int:portfolio_id>/buy', methods=['POST'])
 def buy_stock(portfolio_id):
-    data = request.args
+    data = request.form
     stock_id = data.get('stock_id')
-    quantity = data.get('quantity')
+    quantity = int(data.get('quantity'))
 
     try:
 
@@ -123,9 +123,9 @@ def buy_stock(portfolio_id):
 # url = /api/portfolio/<portfolio_id>/sell?stock_id=<stock_id>&quantity=<quantity>
 @app.route('/api/portfolio/<int:portfolio_id>/sell', methods=['POST'])
 def sell_stock(portfolio_id):
-    data = request.args
+    data = request.form
     stock_id = data.get('stock_id')
-    quantity = data.get('quantity')
+    quantity = int(data.get('quantity'))
 
     try:
 

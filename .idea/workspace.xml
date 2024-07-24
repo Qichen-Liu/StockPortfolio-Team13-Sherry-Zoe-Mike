@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="check:&#10;1. if have enough balance to buy&#10;2. if have enough stocks to sell">
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="updated UI of portfolio.html">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/portfolio.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721825510965</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="updated UI of portfolio.html">
+      <option name="closed" value="true" />
+      <created>1721827541140</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1721827541140</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -208,6 +215,7 @@
     <MESSAGE value="modified home page and portfolio page" />
     <MESSAGE value="fix typo &quot;transactions&quot;" />
     <MESSAGE value="check:&#10;1. if have enough balance to buy&#10;2. if have enough stocks to sell" />
-    <option name="LAST_COMMIT_MESSAGE" value="check:&#10;1. if have enough balance to buy&#10;2. if have enough stocks to sell" />
+    <MESSAGE value="updated UI of portfolio.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated UI of portfolio.html" />
   </component>
 </project>
