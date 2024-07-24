@@ -73,36 +73,45 @@ def buy_stock(portfolio_id):
     quantity = data.get('quantity')
 
     try:
+
+        # check if we have enough balance
+        balance_query = """
+        select balance from portfolio where id = %s
+        """, portfolio_id
+        balance = execute_query(balance_query)[0]['balance']
+        # Get the stock price
+        stock_query = """
+                select price from stocks where id = %s
+                """, stock_id
+        stock_info = execute_query(stock_query)
+        stock_price = stock_info[0]['price']
+        if balance < quantity * stock_price:
+            return jsonify({'error': 'Not enough balance'}), 400
+
         # Update the transaction table
         transaction_query = """
         INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'buy', %s)
         """, (portfolio_id, stock_id, quantity)
         execute_query(transaction_query)
 
-        # Get the stock price
-        stock_query = """
-        select price from stocks where id = %s
-        """, stock_id
-        stock_info = execute_query(stock_query)
-
         # Update the portfolio_stock table
         portfolio_stock_query = """
         INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
         on duplicate key update quantity = quantity + values(quantity)
-        """, (stock_info[0]['price'], portfolio_id, stock_id, quantity)
+        """, (stock_price, portfolio_id, stock_id, quantity)
         execute_query(portfolio_stock_query)
 
         # Update the portfolio table
         portfolio_query = """
         update portfolio set balance = balance - %s, total_value = total_value + %s where id = %s
-        """, (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id)
+        """, (quantity * stock_price, quantity * stock_price, portfolio_id)
         execute_query(portfolio_query)
 
         return jsonify({'message': 'Stock bought successfully'}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
 
 # Define the sell stock route
 # url = /api/portfolio/<portfolio_id>/sell?stock_id=<stock_id>&quantity=<quantity>
@@ -113,11 +122,20 @@ def sell_stock(portfolio_id):
     quantity = data.get('quantity')
 
     try:
+
+        # check if we have enough stock to sell
+        portfolio_stocks_query = """
+        select quantity from portfolio_stocks where portfolio_id = %s and stock_id = %s
+        """, (portfolio_id, stock_id)
+        stock_quantity = execute_query(portfolio_stocks_query)[0]['quantity']
+        if stock_quantity < quantity:
+            return jsonify({'error': 'Not enough stock to sell'}), 400
+
         # Update the transaction table
-        transection_query = """
+        transaction_query = """
         INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'sell', %s)
         """, (portfolio_id, stock_id, quantity)
-        execute_query(transection_query)
+        execute_query(transaction_query)
 
         # Get the stock price
         stock_query = """
