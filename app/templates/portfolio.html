@@ -12,10 +12,10 @@
     <p>Email: {{ email }}</p>
     <p>Balance: {{ balance }}</p>
     <p>Total Value: {{ total_value }}</p>
-    <table border="1" > STOCKS ON HOLD
+    <table border="1" > STOCKS OWNED
         <tr>
             <th>Symbol</th>
-            <th>Stock Name</th>
+            <th>Company</th>
             <th>Quantity</th>
             <th>Price</th>
         </tr>
@@ -28,5 +28,33 @@
         </tr>
         {% endfor %}
     </table>
+
+    <h2>Buy Stock</h2>
+        <form action="/api/portfolio/1/buy" method="POST">
+        <label for="buy_stock_id">Stock:</label>
+        <select id="buy_stock_id" name="stock_id" required>
+            <option value="" disabled selected>Select stock to buy</option>
+            {% for stock in stocks_can_buy %}
+            <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+            {% endfor %}
+        </select>
+        <label for="buy_quantity">Quantity:</label>
+        <input type="text" id="buy_quantity" name="quantity" required>
+        <button type="submit">Buy</button>
+    </form>
+
+    <h2>Sell Stock</h2>
+        <form action="/api/portfolio/1/sell" method="POST">
+            <label for="sell_stock_id">Stock:</label>
+            <select id="sell_stock_id" name="stock_id" required>
+                <option value="" disabled selected>Select stock to sell</option>
+                {% for stock in stocks %}
+                <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+            {% endfor %}
+            </select>
+            <label for="sell_quantity">Quantity:</label>
+            <input type="text" id="sell_quantity" name="quantity" required>
+            <button type="submit">Sell</button>
+        </form>
 </body>
 </html>

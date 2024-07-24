@@ -60,8 +60,14 @@ def get_portfolio():
     total_value = result[0]['total_value'] if result else 0
     user_name = result[0]['user_name'] if result else ''
     email = result[0]['email'] if result else ''
+
+    stock_query = """
+    select id, price, stock_name, symbol from stocks
+    """
+    stocks_can_buy = execute_query(stock_query)
+
     return render_template('portfolio.html', user_name=user_name, email=email,
-                           balance=balance, total_value=total_value, stocks=result)
+                           balance=balance, total_value=total_value, stocks=result, stocks_can_buy=stocks_can_buy)
 
 
 # Define the buy stock route
