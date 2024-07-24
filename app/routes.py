@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template
+from flask import render_template, request, jsonify
 import mysql.connector
 from mysql.connector import Error
 
@@ -10,6 +10,7 @@ db_config = {
     'password': 'c0nygre',
     'database': 'mydatabase'
 }
+
 
 def get_db_connection():
     """Create a database connection."""
@@ -22,26 +23,78 @@ def get_db_connection():
         print(f"Error: {e}")
     return connection
 
+
+def execute_query(query, params=None):
+    """Execute a query."""
+    conn = get_db_connection()
+    if conn is None:
+        return None
+
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(query, params)
+    result = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return result
+
+
 # Define the home route
 @app.route('/')
 def home():
-    connection = get_db_connection()
-    if connection is None:
-        return 'Failed to connect to the database', 500
+    return render_template('home.html')
 
-    cursor = connection.cursor(dictionary=True)
 
-    # stock info query
-    cursor.execute("select stock_name, stock_symbol, market_name, country from stocks natural join markets")
-    stocks = cursor.fetchall()
+# Define the portfolio route
+@app.route('/api/portfolio', methods=['GET'])
+def get_portfolio():
+    query = """
+    select p.balance, p.total_value, s.symbol, s.stock_name, ps.quantity, s.price
+    from portfolio p join portfolio_stock ps on p.id = ps.portfolio_id
+    join stocks s on ps.stock_id = s.id
+    """
+    # Execute the query to obatin result
+    result = execute_query(query)
+    balance = result[0]['balance'] if result else 0
+    total_value = result[0]['total_value'] if result else 0
+    return render_template('portfolio.html', balance=balance, total_value=total_value, stocks=result)
 
-    # stock price query
-    cursor.execute("select stock_name, stock_symbol, price, price_date from stocks natural"
-                   " join stock_prices where price_date = '2024-07-02'")
-    prices = cursor.fetchall()
 
-    cursor.close()
-    connection.close()
+@app.route('/api/portfolio/<int:portfolio_id>/buy', methods=['POST'])
+def buy_stock(portfolio_id):
+    data = request.args
+    stock_id = data.get('stock_id')
+    quantity = data.get('quantity')
 
-    return render_template('home.html', stocks=stocks, prices=prices)
+    try:
+        # Update the transection table
+        transection_query = """
+        INSERT INTO transections (portfolio_id, stock_id, transection_type, quantity) VALUES (%s, %s, 'buy', %s)
+        """, (portfolio_id, stock_id, quantity)
+        execute_query(transection_query)
+
+        # Get the stock price
+        stock_query = """
+        select price from stocks where id = %s
+        """, (stock_id)
+        stock_info = execute_query(stock_query)
+
+        # Update the portfolio_stock table
+        portfolio_stock_query = """
+        INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
+        on duplicate key update quantity = quantity + values(quantity)
+        """, (stock_info[0]['price'], portfolio_id, stock_id, quantity)
+        execute_query(portfolio_stock_query)
+
+        # Update the portfolio table
+        portfolio_query = """
+        update portfolio set balance = balance - %s, total_value = total_value + %s where id = %s
+        """, (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id)
+        execute_query(portfolio_query)
+
+        return jsonify({'message': 'Stock bought successfully'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
 

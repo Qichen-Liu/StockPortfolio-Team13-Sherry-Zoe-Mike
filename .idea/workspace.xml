@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="simple query and display on home page">
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="redesigned database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Date" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Data" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Tables" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Tables" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721597025483</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="redesigned database">
+      <option name="closed" value="true" />
+      <created>1721786960943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721786960943</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,6 +162,7 @@
     <MESSAGE value="attached sql files" />
     <MESSAGE value="fix typo" />
     <MESSAGE value="simple query and display on home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple query and display on home page" />
+    <MESSAGE value="redesigned database" />
+    <option name="LAST_COMMIT_MESSAGE" value="redesigned database" />
   </component>
 </project>
