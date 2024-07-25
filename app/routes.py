@@ -71,7 +71,7 @@ def get_portfolio():
 
 
 # Define the buy stock route
-# url = /api/portfolio/<portfolio_id>/buy?stock_id=<stock_id>&quantity=<quantity>
+# url = /api/portfolio/<portfolio_id>/buy
 @app.route('/api/portfolio/<int:portfolio_id>/buy', methods=['POST'])
 def buy_stock(portfolio_id):
     data = request.form
@@ -85,13 +85,13 @@ def buy_stock(portfolio_id):
         # check if we have enough balance
         balance_query = """
         select balance from portfolio where id = %s
-        """, portfolio_id
-        balance = execute_query(balance_query)[0]['balance']
+        """
+        balance = execute_query(balance_query, (portfolio_id, ))[0]['balance']
         # Get the stock price
         stock_query = """
                 select price from stocks where id = %s
                 """
-        stock_info = execute_query(stock_query, stock_id)
+        stock_info = execute_query(stock_query, (stock_id, ))
         stock_price = stock_info[0]['price']
         if balance < quantity * stock_price:
             return jsonify({'error': 'Not enough balance'}), 400
@@ -122,7 +122,7 @@ def buy_stock(portfolio_id):
 
 
 # Define the sell stock route
-# url = /api/portfolio/<portfolio_id>/sell?stock_id=<stock_id>&quantity=<quantity>
+# url = /api/portfolio/<portfolio_id>/sell
 @app.route('/api/portfolio/<int:portfolio_id>/sell', methods=['POST'])
 def sell_stock(portfolio_id):
     data = request.form
@@ -134,8 +134,11 @@ def sell_stock(portfolio_id):
         # check if we have enough stock to sell
         portfolio_stocks_query = """
         select quantity from portfolio_stocks where portfolio_id = %s and stock_id = %s
-        """, (portfolio_id, stock_id)
-        stock_quantity = execute_query(portfolio_stocks_query)[0]['quantity']
+        """
+        stock_quantity = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))
+
+        print(stock_quantity)
+
         if stock_quantity < quantity:
             return jsonify({'error': 'Not enough stock to sell'}), 400
 
@@ -149,7 +152,7 @@ def sell_stock(portfolio_id):
         stock_query = """
         select price from stocks where id = %s
         """
-        stock_info = execute_query(stock_query, stock_id)
+        stock_info = execute_query(stock_query, (stock_id, ))
 
         # Update the portfolio_stock table
         portfolio_stock_query = """
@@ -162,7 +165,8 @@ def sell_stock(portfolio_id):
         portfolio_query = """
         update portfolio set balance = balance + %s, total_value = total_value - %s where id = %s
         """
-        execute_query(portfolio_query, (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id))
+        execute_query(portfolio_query,
+                      (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id))
 
         return jsonify({'message': 'Stock sold successfully'}), 200
 
