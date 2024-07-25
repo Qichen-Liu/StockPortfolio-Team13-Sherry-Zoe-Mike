@@ -78,6 +78,8 @@ def buy_stock(portfolio_id):
     stock_id = data.get('stock_id')
     quantity = int(data.get('quantity'))
 
+    print(f"stock_id: {stock_id}, quantity: {quantity}")
+
     try:
 
         # check if we have enough balance
@@ -88,8 +90,8 @@ def buy_stock(portfolio_id):
         # Get the stock price
         stock_query = """
                 select price from stocks where id = %s
-                """, stock_id
-        stock_info = execute_query(stock_query)
+                """
+        stock_info = execute_query(stock_query, stock_id)
         stock_price = stock_info[0]['price']
         if balance < quantity * stock_price:
             return jsonify({'error': 'Not enough balance'}), 400
@@ -97,21 +99,21 @@ def buy_stock(portfolio_id):
         # Update the transaction table
         transaction_query = """
         INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'buy', %s)
-        """, (portfolio_id, stock_id, quantity)
-        execute_query(transaction_query)
+        """
+        execute_query(transaction_query, (portfolio_id, stock_id, quantity))
 
         # Update the portfolio_stock table
         portfolio_stock_query = """
         INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
         on duplicate key update quantity = quantity + values(quantity)
-        """, (stock_price, portfolio_id, stock_id, quantity)
-        execute_query(portfolio_stock_query)
+        """
+        execute_query(portfolio_stock_query, (stock_price, portfolio_id, stock_id, quantity))
 
         # Update the portfolio table
         portfolio_query = """
         update portfolio set balance = balance - %s, total_value = total_value + %s where id = %s
-        """, (quantity * stock_price, quantity * stock_price, portfolio_id)
-        execute_query(portfolio_query)
+        """
+        execute_query(portfolio_query, (quantity * stock_price, quantity * stock_price, portfolio_id))
 
         return jsonify({'message': 'Stock bought successfully'}), 200
 
@@ -140,27 +142,27 @@ def sell_stock(portfolio_id):
         # Update the transaction table
         transaction_query = """
         INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'sell', %s)
-        """, (portfolio_id, stock_id, quantity)
-        execute_query(transaction_query)
+        """
+        execute_query(transaction_query, (portfolio_id, stock_id, quantity))
 
         # Get the stock price
         stock_query = """
         select price from stocks where id = %s
-        """, stock_id
-        stock_info = execute_query(stock_query)
+        """
+        stock_info = execute_query(stock_query, stock_id)
 
         # Update the portfolio_stock table
         portfolio_stock_query = """
         INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
         on duplicate key update quantity = quantity - values(quantity)
-        """, (stock_info[0]['price'], portfolio_id, stock_id, quantity)
-        execute_query(portfolio_stock_query)
+        """
+        execute_query(portfolio_stock_query, (stock_info[0]['price'], portfolio_id, stock_id, quantity))
 
         # Update the portfolio table
         portfolio_query = """
         update portfolio set balance = balance + %s, total_value = total_value - %s where id = %s
-        """, (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id)
-        execute_query(portfolio_query)
+        """
+        execute_query(portfolio_query, (quantity * stock_info[0]['price'], quantity * stock_info[0]['price'], portfolio_id))
 
         return jsonify({'message': 'Stock sold successfully'}), 200
 

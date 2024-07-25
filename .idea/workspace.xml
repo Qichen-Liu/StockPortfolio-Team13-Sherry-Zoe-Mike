@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="updated UI of portfolio.html">
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added requirements.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
@@ -177,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721827541140</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added requirements.txt">
+      <option name="closed" value="true" />
+      <created>1721828670362</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1721828670362</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,6 +224,7 @@
     <MESSAGE value="fix typo &quot;transactions&quot;" />
     <MESSAGE value="check:&#10;1. if have enough balance to buy&#10;2. if have enough stocks to sell" />
     <MESSAGE value="updated UI of portfolio.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated UI of portfolio.html" />
+    <MESSAGE value="added requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="added requirements.txt" />
   </component>
 </project>
