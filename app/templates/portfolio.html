@@ -19,7 +19,7 @@
             <th>Quantity</th>
             <th>Price</th>
         </tr>
-        {% for stock in stocks %}
+        {% for stock in stocks_can_sell %}
         <tr>
             <td>{{ stock.symbol }}</td>
             <td>{{ stock.stock_name }}</td>
@@ -48,7 +48,7 @@
             <label for="sell_stock_id">Stock:</label>
             <select id="sell_stock_id" name="stock_id" required>
                 <option value="" disabled selected>Select stock to sell</option>
-                {% for stock in stocks %}
+                {% for stock in stocks_can_sell %}
                 <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
             {% endfor %}
             </select>
