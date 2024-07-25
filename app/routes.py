@@ -89,10 +89,11 @@ def buy_stock(portfolio_id):
         balance = execute_query(balance_query, (portfolio_id, ))[0]['balance']
         # Get the stock price
         stock_query = """
-                select price from stocks where id = %s
+                select price, stock_name from stocks where id = %s
                 """
         stock_info = execute_query(stock_query, (stock_id, ))
         stock_price = stock_info[0]['price']
+        stock_name = stock_info[0]['stock_name']
         if balance < quantity * stock_price:
             return jsonify({'error': 'Not enough balance'}), 400
 
@@ -107,7 +108,7 @@ def buy_stock(portfolio_id):
         INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
         on duplicate key update quantity = quantity + values(quantity)
         """
-        execute_query(portfolio_stock_query, (stock_price, portfolio_id, stock_id, quantity))
+        execute_query(portfolio_stock_query, (stock_name, portfolio_id, stock_id, quantity))
 
         # Update the portfolio table
         portfolio_query = """

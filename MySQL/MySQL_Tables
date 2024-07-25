@@ -20,7 +20,8 @@ create table portfolio_stocks (
     stock_id int,
     quantity int,
     foreign key (stock_id) references stocks(id),
-    foreign key (portfolio_id) references portfolio(id)
+    foreign key (portfolio_id) references portfolio(id),
+    unique (portfolio_id, stock_id)
 );
 
 create table transactions (
