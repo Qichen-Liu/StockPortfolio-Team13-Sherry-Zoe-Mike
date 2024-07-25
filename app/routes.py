@@ -71,7 +71,7 @@ def get_portfolio():
 
 
 # Define the buy stock route
-# url = /api/portfolio/<portfolio_id>/buy?stock_id=<stock_id>&quantity=<quantity>
+# url = /api/portfolio/<portfolio_id>/buy
 @app.route('/api/portfolio/<int:portfolio_id>/buy', methods=['POST'])
 def buy_stock(portfolio_id):
     data = request.form
@@ -122,7 +122,7 @@ def buy_stock(portfolio_id):
 
 
 # Define the sell stock route
-# url = /api/portfolio/<portfolio_id>/sell?stock_id=<stock_id>&quantity=<quantity>
+# url = /api/portfolio/<portfolio_id>/sell
 @app.route('/api/portfolio/<int:portfolio_id>/sell', methods=['POST'])
 def sell_stock(portfolio_id):
     data = request.form
