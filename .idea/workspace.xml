@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="altered portfolio_stocks with unique(stock_id, portfolio_id) to remove duplicates" />
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="altered portfolio_stocks with unique(stock_id, portfolio_id) to remove duplicates">
+      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

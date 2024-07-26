@@ -3,10 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Stocks</title>
+    <style>
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        background-color: #007bff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-
-  <h1>Wellcome to the Stocks App home page!</h1>
-    <p>Enter portfolio you can see the list of stocks and their prices.</p>
+    <h1>Welcome to the Stocks App home page!</h1>
+    <p>Enter portfolio to see the list of stocks and their prices.</p>
+    <a href="api/portfolio" class="button">Go to Portfolio</a>
   </body>
 </html>
