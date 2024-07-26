@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for
 import mysql.connector
 from mysql.connector import Error
 
@@ -40,7 +40,7 @@ def execute_query(query, params=None):
 
 
 # Define the home route
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
 
@@ -67,7 +67,8 @@ def get_portfolio():
     stocks_can_buy = execute_query(stock_query)
 
     return render_template('portfolio.html', user_name=user_name, email=email,
-                           balance=balance, total_value=total_value, stocks_can_sell=result, stocks_can_buy=stocks_can_buy)
+                           balance=balance, total_value=total_value, stocks_can_sell=result,
+                           stocks_can_buy=stocks_can_buy)
 
 
 # Define the buy stock route
@@ -86,13 +87,13 @@ def buy_stock(portfolio_id):
         balance_query = """
         select balance from portfolio where id = %s
         """
-        balance = execute_query(balance_query, (portfolio_id, ))[0]['balance']
+        balance = execute_query(balance_query, (portfolio_id,))[0]['balance']
 
         # Get the stock price
         stock_query = """
                 select price, stock_name from stocks where id = %s
                 """
-        stock_info = execute_query(stock_query, (stock_id, ))
+        stock_info = execute_query(stock_query, (stock_id,))
         stock_price = stock_info[0]['price']
         stock_name = stock_info[0]['stock_name']
         if balance < quantity * stock_price:
@@ -117,10 +118,10 @@ def buy_stock(portfolio_id):
         """
         execute_query(portfolio_query, (quantity * stock_price, quantity * stock_price, portfolio_id))
 
-        return jsonify({'message': 'Stock bought successfully'}), 200
+        return redirect(url_for('buy_status', status='success', message='Stock bought successfully'))
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return redirect(url_for('buy_status', status='error', message=str(e)))
 
 
 # Define the sell stock route
@@ -156,7 +157,7 @@ def sell_stock(portfolio_id):
         stock_query = """
         select price, stock_name from stocks where id = %s
         """
-        stock_info = execute_query(stock_query, (stock_id, ))
+        stock_info = execute_query(stock_query, (stock_id,))
         stock_price = stock_info[0]['price']
         stock_name = stock_info[0]['stock_name']
 
@@ -176,7 +177,23 @@ def sell_stock(portfolio_id):
         execute_query(portfolio_query,
                       (quantity * stock_price, quantity * stock_price, portfolio_id))
 
-        return jsonify({'message': 'Stock sold successfully'}), 200
+        return redirect(url_for('sell_status', status='success', message='Stock sold successfully'))
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return redirect(url_for('sell_status', status='error', message=str(e)))
+
+
+# Define the buy status route
+@app.route('/api/buy-status', methods=['GET'])
+def buy_status():
+    status = request.args.get('status', 'error')
+    message = request.args.get('message', 'An unknown error occurred.')
+    return render_template('buyStatus.html', status=status, message=message)
+
+
+# Define the sell status route
+@app.route('/api/sell-status', methods=['GET'])
+def sell_status():
+    status = request.args.get('status', 'error')
+    message = request.args.get('message', 'An unknown error occurred.')
+    return render_template('sellStatus.html', status=status, message=message)
