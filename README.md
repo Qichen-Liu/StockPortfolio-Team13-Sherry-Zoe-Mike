@@ -2,6 +2,11 @@
 
 This project is a simple project that demonstrates the use of Restful API. The project is written in Python and uses the Flask framework.
 
+# Team 13 Members
+- Sherry Lu
+- Zoe Xiao
+- Mike Liu
+
 # Project Structure
 
 ```
@@ -65,4 +70,3 @@ This table stores information about transactions (buying and selling stocks) wit
 - `transaction_type`: The type of transaction (`buy` or `sell`).
 - `quantity`: The number of shares involved in the transaction.
 - `transaction_date`: The date and time of the transaction, with a default value of the current timestamp.
-
