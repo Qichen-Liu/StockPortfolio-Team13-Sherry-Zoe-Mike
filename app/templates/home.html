@@ -1,30 +1,139 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Stocks</title>
-    <style>
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-        background-color: #007bff;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      .button:hover {
-        background-color: #0056b3;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Welcome to the Stocks App home page!</h1>
-    <p>Enter portfolio to see the list of stocks and their prices.</p>
+
+<head>
+  <meta charset="utf-8">
+  <title>Portfolio App</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      max-width: 700px;
+      width: 90%;
+      margin: 20px;
+      transition: transform 0.3s;
+    }
+
+    .container:hover {
+      transform: translateY(-10px);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      background-color: #ff6b6b;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #ff4757;
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 30px;
+    }
+
+    h2 {
+      color: #555;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .intro,
+    .team {
+      margin-bottom: 20px;
+    }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .team-member {
+      background: #ffeaa7;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      flex: 1 1 120px;
+      max-width: 120px;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+
+    .team-member h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome to the Ultimate Portfolio App!</h1>
+    <div class="intro">
+      <h2>Project Introduction</h2>
+      <p>Our application helps you manage your financial portfolio with ease and efficiency. Track, analyze, and optimize your investments effortlessly.</p>
+    </div>
+    <div class="team">
+      <h2>Meet the Team</h2>
+      <div class="team-members">
+        <div class="team-member">
+          <h3>Zoe Xiao</h3>
+        </div>
+        <div class="team-member">
+          <h3>Mike Liu</h3>
+        </div>
+        <div class="team-member">
+          <h3>Sherry Lu</h3>
+        </div>
+      </div>
+    </div>
+    <p>Click below to enter your portfolio and start managing your investments today!</p>
     <a href="api/portfolio" class="button">Go to Portfolio</a>
-  </body>
+  </div>
+</body>
+
 </html>
