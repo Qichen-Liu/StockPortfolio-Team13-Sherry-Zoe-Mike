@@ -76,7 +76,7 @@
 
         .net-worth-graph {
             margin: 20px 0;
-            background: #a6a4a4;
+            background: #eeecec;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -152,10 +152,11 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: url('user.jpg') no-repeat center center;
+            background: url("{{ url_for('static', filename='user.jpg') }}") no-repeat center center;
             background-size: cover;
             margin-bottom: 20px;
         }
+
 
         .transaction-history {
             margin-top: 20px;
@@ -199,7 +200,7 @@
             </div>
         </div>
         <div class="content">
-            <h1>Portfolio</h1>
+            <h1>Portfolio Manager</h1>
             <p>Welcome to your professional Stocks App portfolio page!</p>
             <div class="net-worth-graph">
                 <h2>Current Net Worth</h2>
