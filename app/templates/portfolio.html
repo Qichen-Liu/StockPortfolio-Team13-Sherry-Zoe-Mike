@@ -1,61 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Stock Portfolio Manager</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: #ececec;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-weight: 700;
+            color: #8c7b75;
+        }
+
+        .sidebar p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .content {
+            flex: 3;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        .content h1 {
+            font-weight: 700;
+            margin-top: 0;
+            text-align: center;
+            color: #6d6875;
+        }
+
+        .content h2 {
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: #a8b3ba;
+        }
+
+        .content p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .net-worth-graph {
+            margin: 20px 0;
+            background: #a6a4a4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #a8b3ba;
+            color: #333;
+        }
+
+        td:hover {
+            background-color: #ececec;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        button {
+            background-color: #a8b3ba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button i {
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background-color: #8c7b75;
+        }
+
+        .sidebar .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: url('user.jpg') no-repeat center center;
+            background-size: cover;
+            margin-bottom: 20px;
+        }
+
+        .transaction-history {
+            margin-top: 20px;
+            width: 100%;
+            background: #ececec;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-history p {
+            color: #333;
+        }
+
+        /* Add hover effects for interactivity */
+        .sidebar,
+        .content {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar:hover,
+        .content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Portfolio</h1>
-    <p>Wellcome to the Stocks App portfolio page!</p>
-    <p>Name: {{ user_name }}</p>
-    <p>Email: {{ email }}</p>
-    <p>Balance: {{ balance }}</p>
-    <p>Total Value: {{ total_value }}</p>
-    <table border="1" > STOCKS OWNED
-        <tr>
-            <th>Symbol</th>
-            <th>Company</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-        {% for stock in stocks_can_sell %}
-        <tr>
-            <td>{{ stock.symbol }}</td>
-            <td>{{ stock.stock_name }}</td>
-            <td>{{ stock.quantity }}</td>
-            <td>{{ stock.price }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <div class="sidebar">
+            <div class="profile-pic">
+            </div>
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> {{ user_name }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>Balance:</strong> {{ balance }}</p>
+            <div class="transaction-history">
+                <h2>Transaction History</h2>
+                <p>Transaction details will go here.</p>
+            </div>
+        </div>
+        <div class="content">
+            <h1>Portfolio</h1>
+            <p>Welcome to your professional Stocks App portfolio page!</p>
+            <div class="net-worth-graph">
+                <h2>Current Net Worth</h2>
+                <!-- Simple SVG graph -->
+                <svg width="100%" height="400">
+                    <line x1="10%" y1="90%" x2="20%" y2="80%" stroke="black" stroke-width="2" />
+                    <line x1="20%" y1="80%" x2="30%" y2="70%" stroke="black" stroke-width="2" />
+                    <line x1="30%" y1="70%" x2="40%" y2="60%" stroke="black" stroke-width="2" />
+                    <line x1="40%" y1="60%" x2="50%" y2="50%" stroke="black" stroke-width="2" />
+                    <line x1="50%" y1="50%" x2="60%" y2="40%" stroke="black" stroke-width="2" />
+                    <line x1="60%" y1="40%" x2="70%" y2="30%" stroke="black" stroke-width="2" />
+                    <line x1="70%" y1="30%" x2="80%" y2="20%" stroke="black" stroke-width="2" />
+                    <line x1="80%" y1="20%" x2="90%" y2="10%" stroke="black" stroke-width="2" />
+                </svg>
+            </div>
+            <h2>Stocks Owned & Total Value</h2>
+            <p>Total Value: {{ total_value }}</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks_can_sell %}
+                    <tr>
+                        <td>{{ stock.symbol }}</td>
+                        <td>{{ stock.stock_name }}</td>
+                        <td>{{ stock.quantity }}</td>
+                        <td>{{ stock.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Buy Stock</h2>
+            <form action="/api/portfolio/1/buy" method="POST">
+                <label for="buy_stock_id">Stock:</label>
+                <select id="buy_stock_id" name="stock_id" required>
+                    <option value="" disabled selected>Select stock to buy</option>
+                    {% for stock in stocks_can_buy %}
+                    <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="buy_quantity">Quantity:</label>
+                <input type="text" id="buy_quantity" name="quantity" required>
+                <button type="submit"><i class="fas fa-shopping-cart"></i> Buy</button>
+            </form>
 
-    <h2>Buy Stock</h2>
-        <form action="/api/portfolio/1/buy" method="POST">
-        <label for="buy_stock_id">Stock:</label>
-        <select id="buy_stock_id" name="stock_id" required>
-            <option value="" disabled selected>Select stock to buy</option>
-            {% for stock in stocks_can_buy %}
-            <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
-            {% endfor %}
-        </select>
-        <label for="buy_quantity">Quantity:</label>
-        <input type="text" id="buy_quantity" name="quantity" required>
-        <button type="submit">Buy</button>
-    </form>
-
-    <h2>Sell Stock</h2>
-        <form action="/api/portfolio/1/sell" method="POST">
-            <label for="sell_stock_id">Stock:</label>
-            <select id="sell_stock_id" name="stock_id" required>
-                <option value="" disabled selected>Select stock to sell</option>
-                {% for stock in stocks_can_sell %}
-                <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
-            {% endfor %}
-            </select>
-            <label for="sell_quantity">Quantity:</label>
-            <input type="text" id="sell_quantity" name="quantity" required>
-            <button type="submit">Sell</button>
-        </form>
+            <h2>Sell Stock</h2>
+            <form action="/api/portfolio/1/sell" method="POST">
+                <label for="sell_stock_id">Stock:</label>
+                <select id="sell_stock_id" name="stock_id" required>
+                    <option value="" disabled selected>Select stock to sell</option>
+                    {% for stock in stocks_can_sell %}
+                    <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="sell_quantity">Quantity:</label>
+                <input type="text" id="sell_quantity" name="quantity" required>
+                <button type="submit"><i class="fas fa-dollar-sign"></i> Sell</button>
+            </form>
+        </div>
+    </div>
 
 </body>
+
 </html>
