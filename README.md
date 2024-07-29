@@ -26,8 +26,7 @@ This project is a simple project that demonstrates the use of Restful API. The p
 │   └── data.sql
 └── requirements.txt
 ```
-![Blank diagram (2)](https://github.com/user-attachments/assets/f06a0ff0-c448-42f2-a274-8f1eb3286d25)
-
+![Blank diagram (4)](https://github.com/user-attachments/assets/f0ac8743-489e-4070-bcac-5b287535e2c1)
 # Run Project
 ```
 pip install -r requirements.txt   // install required packages
