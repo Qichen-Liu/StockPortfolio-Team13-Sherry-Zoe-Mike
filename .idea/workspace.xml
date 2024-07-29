@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added buystatus and sellstatus pages" />
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added buystatus and sellstatus pages">
+      <change afterPath="$PROJECT_DIR$/app/databaseHelper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/realtimePrice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Data" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Tables" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Tables" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
