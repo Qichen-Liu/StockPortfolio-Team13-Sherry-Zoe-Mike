@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="sell done">
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Data" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/realtimePrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/realtimePrice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

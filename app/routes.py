@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, jsonify, redirect, url_for
 from app.databaseHelper import execute_query
-from app.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices
+from app.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices, get_stock_data
 
 
 # Define the home route
@@ -199,12 +199,25 @@ def sell_status():
 
 # Define the search stock route
 # sample url = /api/search-stock/id=?
-@app.route('/api/search-stock', methods=['GET'])
+@app.route('/api/fetch-stock', methods=['GET'])
 def search_stock():
     stock_id = request.args.get('id')
-    query = """
-    select id, stock_name, symbol from stocks where id = %s
+    portfolio_id = 1
+    stock_query = """
+    select stock_name, symbol from stocks where id = %s
     """
-    result = execute_query(query, (stock_id,))
-    return jsonify(result)
+    result = execute_query(stock_query, (stock_id,))
+    symbol = result[0]['symbol'] if result else ''
+    stock_name = result[0]['stock_name'] if result else ''
+    historical_prices = get_last_30_days_stock_prices(symbol)
+    stock_detail = get_stock_data(symbol)
+
+    portfolio_stocks_query = """
+           select quantity from portfolio_stocks where portfolio_id = %s and stock_id = %s
+           """
+    stocks = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))
+    stock_quantity = stocks[0]['quantity'] if stocks else 0
+
+    return jsonify('stock.html', stock_name=stock_name, symbol=symbol, stock_detail=stock_detail,
+                           historical_prices=historical_prices, stock_id=stock_id, stock_quantity=stock_quantity)
 
