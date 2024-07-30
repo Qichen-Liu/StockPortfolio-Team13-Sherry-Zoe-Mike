@@ -234,11 +234,41 @@
                         <td>{{ stock.symbol }}</td>
                         <td>{{ stock.stock_name }}</td>
                         <td>{{ stock.quantity }}</td>
-                        <td>{{ stock.price }}</td>
+                        <td>{{ stock.last_30_days_prices[0][1] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
+
+
+            <h2>Stocks holding historical price</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks_can_sell %}
+                    <tr>
+                        <td>{{ stock.symbol }}</td>
+                        <td>{{ stock.stock_name }}</td>
+                        <td>{{ stock.quantity }}</td>
+                        <td>{{ stock.last_30_days_prices }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+
+
+            <h2>Buy Stock</h2>
+
             <div style="width: 400px;">
                 <h2>Stock Total Values Distribution</h2>
                 <canvas id="piechart"></canvas>
@@ -249,6 +279,7 @@
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}">
             </script>
                 <h2>Buy Stock</h2>
+
             <form action="/api/portfolio/1/buy" method="POST">
                 <label for="buy_stock_id">Stock:</label>
                 <select id="buy_stock_id" name="stock_id" required>
@@ -268,7 +299,7 @@
                 <select id="sell_stock_id" name="stock_id" required>
                     <option value="" disabled selected>Select stock to sell</option>
                     {% for stock in stocks_can_sell %}
-                    <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                    <option value="{{ stock.id }}">{{stock.id}} - {{ stock.symbol }} - {{ stock.stock_name }}</option>
                     {% endfor %}
                 </select>
                 <label for="sell_quantity">Quantity:</label>

@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added buystatus and sellstatus pages">
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="sell done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/portfolio.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -55,13 +55,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.app.executor": "Run",
+    "Python.realtimePrice.executor": "Run",
+    "Python.routes.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\homework\app" />
@@ -220,7 +222,31 @@
       <option name="project" value="LOCAL" />
       <updated>1721964237116</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py">
+      <option name="closed" value="true" />
+      <created>1722285271111</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1722285271111</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added realtime value with yahoo api&#10;changed db tables&#10;buy stock done">
+      <option name="closed" value="true" />
+      <created>1722310459505</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1722310459505</updated>
+    </task>
+    <task id="LOCAL-00020" summary="sell done">
+      <option name="closed" value="true" />
+      <created>1722312295067</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1722312295067</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,6 +290,9 @@
     <MESSAGE value="altered portfolio_stocks with unique(stock_id, portfolio_id) to remove duplicates" />
     <MESSAGE value="modified home.html: added a button to direct to portfolio page" />
     <MESSAGE value="added buystatus and sellstatus pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="added buystatus and sellstatus pages" />
+    <MESSAGE value="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py" />
+    <MESSAGE value="added realtime value with yahoo api&#10;changed db tables&#10;buy stock done" />
+    <MESSAGE value="sell done" />
+    <option name="LAST_COMMIT_MESSAGE" value="sell done" />
   </component>
 </project>
