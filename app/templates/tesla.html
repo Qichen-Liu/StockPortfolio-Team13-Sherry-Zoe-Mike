@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Stock Price</title>
+    <title>Tesla Stock Price</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -124,35 +124,35 @@
 <body>
     <div class="container">
         <header>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg" alt="Amazon Logo">
-            <h1>AMZN</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" alt="Tesla Logo">
+            <h1>TSLA</h1>
         </header>
         <div class="stock-info">
-            <div class="company-name">Amazon.com, Inc. (AMZN)</div>
-            <div class="stock-price" id="stock-price">$180.39</div>
-            <div class="price-change" id="price-change">-1.72 (-0.94%)</div>
+            <div class="company-name">Tesla, Inc. (TSLA)</div>
+            <div class="stock-price" id="stock-price">$221.19</div>
+            <div class="price-change" id="price-change">+4.39 (+2.02%)</div>
             <div class="last-updated" id="last-updated">Market Open</div>
         </div>
         <div class="additional-info">
             <div class="info-item">
                 <span class="label">Volume</span>
-                <span id="volume">24.693m</span>
+                <span id="volume">22.05m</span>
             </div>
             <div class="info-item">
                 <span class="label">Day's High ($)</span>
-                <span id="days-high">185.86</span>
+                <span id="days-high">225.42</span>
             </div>
             <div class="info-item">
                 <span class="label">Day's Low ($)</span>
-                <span id="days-low">179.38</span>
+                <span id="days-low">216.8</span>
             </div>
             <div class="info-item">
                 <span class="label">30 Day High ($)</span>
-                <span id="52-week-high">201.2</span>
+                <span id="52-week-high">253.6</span>
             </div>
             <div class="info-item">
                 <span class="label">30 Day Low ($)</span>
-                <span id="52-week-low">118.35</span>
+                <span id="52-week-low">201.02</span>
             </div>
         </div>
         <div class="chart-container">
@@ -165,13 +165,13 @@
 
     <script>
         const stockData = [
-            ['2024-07-26', 180.39], ['2024-07-25', 182.91], ['2024-07-24', 183.2],
-            ['2024-07-23', 184.1], ['2024-07-22', 185.0], ['2024-07-19', 181.14],
-            ['2024-07-18', 189.59], ['2024-07-17', 191.35], ['2024-07-16', 195.59],
-            ['2024-07-15', 194.56], ['2024-07-12', 194.8], ['2024-07-11', 200.09],
-            ['2024-07-10', 199.995], ['2024-07-09', 199.4], ['2024-07-08', 200.04],
-            ['2024-07-05', 198.65], ['2024-07-03', 199.94], ['2024-07-02', 197.28],
-            ['2024-07-01', 193.49]
+            ['2024-07-26', 221.19], ['2024-07-25', 216.8], ['2024-07-24', 225.42],
+            ['2024-07-23', 253.6], ['2024-07-22', 244.21], ['2024-07-19', 247.79],
+            ['2024-07-18', 251.09], ['2024-07-17', 252.73], ['2024-07-16', 255.31],
+            ['2024-07-15', 255.97], ['2024-07-12', 235.8], ['2024-07-11', 263.3],
+            ['2024-07-10', 262.8], ['2024-07-09', 251.0], ['2024-07-08', 247.71],
+            ['2024-07-05', 249.81], ['2024-07-03', 234.56], ['2024-07-02', 218.89],
+            ['2024-07-01', 201.02]
         ];
 
         function updateStockPrice() {
