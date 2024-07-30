@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Portfolio Manager</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
@@ -267,6 +268,18 @@
 
 
             <h2>Buy Stock</h2>
+
+            <div style="width: 400px;">
+                <h2>Stock Total Values Distribution</h2>
+                <canvas id="piechart"></canvas>
+            </div>
+            <script type="text/javascript">
+                var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
+             </script>
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}">
+            </script>
+                <h2>Buy Stock</h2>
+
             <form action="/api/portfolio/1/buy" method="POST">
                 <label for="buy_stock_id">Stock:</label>
                 <select id="buy_stock_id" name="stock_id" required>
