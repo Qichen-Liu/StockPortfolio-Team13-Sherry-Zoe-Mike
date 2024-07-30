@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, jsonify, redirect, url_for
 from app.databaseHelper import execute_query
-from app.realtimePrice import get_current_price, get_last_30_days_prices
+from app.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices
 
 
 # Define the home route
@@ -14,7 +14,7 @@ def home():
 @app.route('/api/portfolio', methods=['GET'])
 def get_portfolio():
     query = """
-    select p.user_name, p.email, p.balance, p.total_value, s.symbol, s.stock_name, ps.quantity, s.price, s.id
+    select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id
     from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
     join stocks s on ps.stock_id = s.id
     where p.id = 1
@@ -22,17 +22,32 @@ def get_portfolio():
     # Execute the query to obtain the result
     result = execute_query(query)
     balance = result[0]['balance'] if result else 0
-    total_value = result[0]['total_value'] if result else 0
     user_name = result[0]['user_name'] if result else ''
     email = result[0]['email'] if result else ''
 
+    # Prepare stock data and current total value of the portfolio
+    stock_hold = []
+    total_value = 0.0
+
+    for stock in result:
+        symbol = stock['symbol']
+        last_30_days_prices = get_last_30_days_stock_prices(symbol)
+        stock_info = {
+            'stock_name': stock['stock_name'],
+            'symbol': symbol,
+            'quantity': stock['quantity'],
+            'last_30_days_prices': last_30_days_prices
+        }
+        stock_hold.append(stock_info)
+        total_value += stock['quantity'] * last_30_days_prices[0][1]
+
     stock_query = """
-    select id, price, stock_name, symbol from stocks
+    select id, stock_name, symbol from stocks
     """
     stocks_can_buy = execute_query(stock_query)
 
     return render_template('portfolio.html', user_name=user_name, email=email,
-                           balance=balance, total_value=total_value, stocks_can_sell=result,
+                           balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
                            stocks_can_buy=stocks_can_buy)
 
 
@@ -56,32 +71,36 @@ def buy_stock(portfolio_id):
 
         # Get the stock price
         stock_query = """
-                select price, stock_name from stocks where id = %s
+                select stock_name, symbol from stocks where id = %s
                 """
         stock_info = execute_query(stock_query, (stock_id,))
-        stock_price = stock_info[0]['price']
+        stock_symbol = stock_info[0]['symbol']
+        print(f"stock_symbol: {stock_symbol}")
+        stock_price = get_current_stock_price(stock_symbol)
+        print(f"stock_price: {stock_price}")
+
         stock_name = stock_info[0]['stock_name']
         if balance < quantity * stock_price:
             return jsonify({'error': 'Not enough balance'}), 400
 
         # Update the transaction table
-        transaction_query = """
-        INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'buy', %s)
-        """
-        execute_query(transaction_query, (portfolio_id, stock_id, quantity))
+        transaction_query = """INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity) 
+        VALUES (%s, %s, %s, 'buy', %s, %s)"""
+
+        execute_query(transaction_query, (portfolio_id, stock_id, stock_symbol, stock_price, quantity))
 
         # Update the portfolio_stock table
         portfolio_stock_query = """
-        INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
-        on duplicate key update quantity = quantity + values(quantity)
+        INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity) VALUES 
+        (%s, %s, %s, %s, %s) on duplicate key update quantity = quantity + values(quantity)
         """
-        execute_query(portfolio_stock_query, (stock_name, portfolio_id, stock_id, quantity))
+        execute_query(portfolio_stock_query, (stock_name, stock_symbol, portfolio_id, stock_id, quantity))
 
         # Update the portfolio table
         portfolio_query = """
-        update portfolio set balance = balance - %s, total_value = total_value + %s where id = %s
+        update portfolio set balance = balance - %s where id = %s
         """
-        execute_query(portfolio_query, (quantity * stock_price, quantity * stock_price, portfolio_id))
+        execute_query(portfolio_query, (quantity * stock_price, portfolio_id))
 
         return redirect(url_for('buy_status', status='success', message='Stock bought successfully'))
 

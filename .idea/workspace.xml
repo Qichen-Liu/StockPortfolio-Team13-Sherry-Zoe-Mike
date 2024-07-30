@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added buystatus and sellstatus pages">
-      <change afterPath="$PROJECT_DIR$/app/databaseHelper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/realtimePrice.py" afterDir="false" />
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Data" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Tables" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Tables" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/realtimePrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/realtimePrice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/portfolio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +62,7 @@
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.realtimePrice.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
@@ -222,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721964237116</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py">
+      <option name="closed" value="true" />
+      <created>1722285271111</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1722285271111</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,6 +276,7 @@
     <MESSAGE value="altered portfolio_stocks with unique(stock_id, portfolio_id) to remove duplicates" />
     <MESSAGE value="modified home.html: added a button to direct to portfolio page" />
     <MESSAGE value="added buystatus and sellstatus pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="added buystatus and sellstatus pages" />
+    <MESSAGE value="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py" />
   </component>
 </project>

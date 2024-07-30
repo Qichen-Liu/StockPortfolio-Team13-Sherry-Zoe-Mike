@@ -233,7 +233,7 @@
                         <td>{{ stock.symbol }}</td>
                         <td>{{ stock.stock_name }}</td>
                         <td>{{ stock.quantity }}</td>
-                        <td>{{ stock.price }}</td>
+                        <td>{{ stock.last_30_days_prices[0][1] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
