@@ -195,3 +195,4 @@ def sell_status():
     status = request.args.get('status', 'error')
     message = request.args.get('message', 'An unknown error occurred.')
     return render_template('sellStatus.html', status=status, message=message)
+

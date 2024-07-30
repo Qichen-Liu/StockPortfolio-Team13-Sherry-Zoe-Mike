@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="added realtime value with yahoo api&#10;changed db tables&#10;buy stock done">
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="sell done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/portfolio.html" afterDir="false" />
@@ -238,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722310459505</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="sell done">
+      <option name="closed" value="true" />
+      <created>1722312295067</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1722312295067</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -284,6 +292,7 @@
     <MESSAGE value="added buystatus and sellstatus pages" />
     <MESSAGE value="restrutured backend: move db config into databaseHelper.py, added realtimePrice.py" />
     <MESSAGE value="added realtime value with yahoo api&#10;changed db tables&#10;buy stock done" />
-    <option name="LAST_COMMIT_MESSAGE" value="added realtime value with yahoo api&#10;changed db tables&#10;buy stock done" />
+    <MESSAGE value="sell done" />
+    <option name="LAST_COMMIT_MESSAGE" value="sell done" />
   </component>
 </project>
