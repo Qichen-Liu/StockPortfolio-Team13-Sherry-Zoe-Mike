@@ -196,3 +196,15 @@ def sell_status():
     message = request.args.get('message', 'An unknown error occurred.')
     return render_template('sellStatus.html', status=status, message=message)
 
+
+# Define the search stock route
+# sample url = /api/search-stock/id=?
+@app.route('/api/search-stock', methods=['GET'])
+def search_stock():
+    stock_id = request.args.get('id')
+    query = """
+    select id, stock_name, symbol from stocks where id = %s
+    """
+    result = execute_query(query, (stock_id,))
+    return jsonify(result)
+
