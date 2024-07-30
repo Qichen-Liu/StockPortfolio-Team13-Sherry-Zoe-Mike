@@ -4,7 +4,7 @@ datasets_data = []
 
 for(let i = 0; i < stocks_can_sell.length; i++) {
     labels.push(stocks_can_sell[i].stock_name);
-    datasets_data.push(stocks_can_sell[i].quantity * stocks_can_sell[i].price)
+    datasets_data.push(stocks_can_sell[i].quantity * stocks_can_sell[i].last_30_days_prices[0][1])
 }
 
 const data = {
