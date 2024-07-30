@@ -30,11 +30,12 @@ def get_portfolio():
     total_value = 0.0
 
     for stock in result:
-        symbol = stock['symbol']
-        last_30_days_prices = get_last_30_days_stock_prices(symbol)
+
+        last_30_days_prices = get_last_30_days_stock_prices(stock['symbol'])
         stock_info = {
+            'id': stock['id'],
             'stock_name': stock['stock_name'],
-            'symbol': symbol,
+            'symbol': stock['symbol'],
             'quantity': stock['quantity'],
             'last_30_days_prices': last_30_days_prices
         }
@@ -69,7 +70,7 @@ def buy_stock(portfolio_id):
         """
         balance = execute_query(balance_query, (portfolio_id,))[0]['balance']
 
-        # Get the stock price
+        # Get the stock
         stock_query = """
                 select stock_name, symbol from stocks where id = %s
                 """
@@ -122,44 +123,57 @@ def sell_stock(portfolio_id):
 
         # check if we have enough stock to sell
         portfolio_stocks_query = """
-        select quantity from portfolio_stocks where portfolio_id = %s and stock_id = %s
+        select quantity, symbol from portfolio_stocks where portfolio_id = %s and stock_id = %s
         """
-        stock_quantity = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))[0]['quantity']
+        stocks = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))
+        stock_quantity = stocks[0]['quantity'] if stocks else 0
+        stock_symbol = stocks[0]['symbol'] if stocks else ''
 
-        print("stock_quantity in sell: ", stock_quantity)
+        print(stocks)
+        print("stock_quantity holds: ", stock_quantity)
 
         if stock_quantity < quantity:
             return jsonify({'error': 'Not enough stock to sell'}), 400
 
-        # Update the transaction table
-        transaction_query = """
-        INSERT INTO transactions (portfolio_id, stock_id, transaction_type, quantity) VALUES (%s, %s, 'sell', %s)
-        """
-        execute_query(transaction_query, (portfolio_id, stock_id, quantity))
-
         # Get the stock price
-        stock_query = """
-        select price, stock_name from stocks where id = %s
-        """
-        stock_info = execute_query(stock_query, (stock_id,))
-        stock_price = stock_info[0]['price']
-        stock_name = stock_info[0]['stock_name']
+        stock_price = get_current_stock_price(stock_symbol)
 
-        print(stock_info)
+        # Update the transaction table
+        transaction_query = """INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity) 
+                VALUES (%s, %s, %s, 'buy', %s, %s)"""
+
+        execute_query(transaction_query, (portfolio_id, stock_id, stock_symbol, stock_price, quantity))
+
+        # Get the stock
+        stock_query = """
+                        select stock_name, symbol from stocks where id = %s
+                        """
+        stock_info = execute_query(stock_query, (stock_id,))
+        stock_symbol = stock_info[0]['symbol']
+        print(f"stock_symbol: {stock_symbol}")
+        stock_price = get_current_stock_price(stock_symbol)
+        print(f"stock_price: {stock_price}")
+        stock_name = stock_info[0]['stock_name']
 
         # Update the portfolio_stock table
         portfolio_stock_query = """
-        INSERT INTO portfolio_stocks (stock_name, portfolio_id, stock_id, quantity) VALUES (%s, %s, %s, %s)
-        on duplicate key update quantity = quantity - values(quantity)
-        """
-        execute_query(portfolio_stock_query, (stock_name, portfolio_id, stock_id, quantity))
+                INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity) VALUES 
+                (%s, %s, %s, %s, %s) on duplicate key update quantity = quantity - values(quantity)
+                """
+        execute_query(portfolio_stock_query, (stock_name, stock_symbol, portfolio_id, stock_id, quantity))
+
+        # Remove the record if quantity becomes 0
+        delete_query = """
+                DELETE FROM portfolio_stocks
+                WHERE portfolio_id = %s AND stock_id = %s AND quantity <= 0
+                """
+        execute_query(delete_query, (portfolio_id, stock_id))
 
         # Update the portfolio table
         portfolio_query = """
-        update portfolio set balance = balance + %s, total_value = total_value - %s where id = %s
-        """
-        execute_query(portfolio_query,
-                      (quantity * stock_price, quantity * stock_price, portfolio_id))
+                update portfolio set balance = balance + %s where id = %s
+                """
+        execute_query(portfolio_query, (quantity * stock_price, portfolio_id))
 
         return redirect(url_for('sell_status', status='success', message='Stock sold successfully'))
 

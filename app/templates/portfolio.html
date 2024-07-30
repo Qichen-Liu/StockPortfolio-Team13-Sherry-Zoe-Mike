@@ -258,7 +258,7 @@
                 <select id="sell_stock_id" name="stock_id" required>
                     <option value="" disabled selected>Select stock to sell</option>
                     {% for stock in stocks_can_sell %}
-                    <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                    <option value="{{ stock.id }}">{{stock.id}} - {{ stock.symbol }} - {{ stock.stock_name }}</option>
                     {% endfor %}
                 </select>
                 <label for="sell_quantity">Quantity:</label>
