@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Portfolio Manager</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
@@ -204,19 +205,15 @@
             <h1>Portfolio Manager</h1>
             <p>Welcome to your professional Stocks App portfolio page!</p>
             <div class="net-worth-graph">
-                <h2>Current Net Worth</h2>
-                <!-- Simple SVG graph -->
-                <svg width="100%" height="400">
-                    <line x1="10%" y1="90%" x2="20%" y2="80%" stroke="black" stroke-width="2" />
-                    <line x1="20%" y1="80%" x2="30%" y2="70%" stroke="black" stroke-width="2" />
-                    <line x1="30%" y1="70%" x2="40%" y2="60%" stroke="black" stroke-width="2" />
-                    <line x1="40%" y1="60%" x2="50%" y2="50%" stroke="black" stroke-width="2" />
-                    <line x1="50%" y1="50%" x2="60%" y2="40%" stroke="black" stroke-width="2" />
-                    <line x1="60%" y1="40%" x2="70%" y2="30%" stroke="black" stroke-width="2" />
-                    <line x1="70%" y1="30%" x2="80%" y2="20%" stroke="black" stroke-width="2" />
-                    <line x1="80%" y1="20%" x2="90%" y2="10%" stroke="black" stroke-width="2" />
-                </svg>
+                <h2>Net Worth</h2>
+                <h3>Last 30 Days</h3>
+                <canvas id="linechart"></canvas>
             </div>
+            <script type="text/javascript">
+                var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
+            </script>
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'linechart.js'}}"></script>
+
             <h2>Stocks Owned & Total Value</h2>
             <p>Total Value: {{ total_value }}</p>
             <table>
@@ -241,7 +238,7 @@
             </table>
 
 
-
+        <!--
             <h2>Stocks holding historical price</h2>
             <table>
                 <thead>
@@ -263,23 +260,16 @@
                     {% endfor %}
                 </tbody>
             </table>
+        -->
 
 
-
-
-            <h2>Buy Stock</h2>
-
-            <div style="width: 400px;">
+            <div style="width:70%">
                 <h2>Stock Total Values Distribution</h2>
                 <canvas id="piechart"></canvas>
             </div>
-            <script type="text/javascript">
-                var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
-             </script>
-            <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}">
-            </script>
-                <h2>Buy Stock</h2>
-
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}"></script>
+            
+            <h2>Buy Stock</h2>
             <form action="/api/portfolio/1/buy" method="POST">
                 <label for="buy_stock_id">Stock:</label>
                 <select id="buy_stock_id" name="stock_id" required>
