@@ -33,7 +33,7 @@ pip install -r requirements.txt   // install required packages
 python run.py                     // run program
 
 ```
-## Database Design
+# Database Design
 
 ### `stocks` Table
 This table stores information about individual stocks.
@@ -74,7 +74,7 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **`quantity`**: Integer. The number of stock units involved in the transaction.
 - **`transaction_date`**: Timestamp, defaulting to the current timestamp. The date and time of the transaction.
 
-## API Functions
+# API Functions
 
 ### Home Route
 - **Endpoint**: `/`
@@ -111,7 +111,7 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **Method**: `GET`
 - **Description**: Retrieves detailed information about a stock by its ID. Includes stock name, symbol, historical prices for the last 30 days, and current stock data. Also shows the quantity of the stock currently held in the portfolio.
 
-## Realtime Stock Price Helper Functions
+# Realtime Stock Price Helper Functions
 
 ### `get_last_30_days_stock_prices`
 - **Description**: Retrieves historical stock prices for the past 30 days.
