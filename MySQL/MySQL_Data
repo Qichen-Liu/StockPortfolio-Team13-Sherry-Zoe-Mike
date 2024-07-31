@@ -4,20 +4,10 @@ INSERT INTO stocks (symbol, stock_name) VALUES
 ('GOOGL', 'Alphabet Inc.'),
 ('AMZN', 'Amazon.com Inc.'),
 ('MSFT', 'Microsoft Corporation'),
-('FB', 'Facebook Inc.'),
+('META', 'Meta Inc.'),
 ('TSLA', 'Tesla Inc.');
 
 
 -- Insert data into the 'portfolio' table
 -- INSERT INTO portfolio (user_name, email, balance, total_value) VALUES
 -- ('Mike Liu', 'random.rd@random.com', 10000.00, 0.00);
-
--- Insert data into the 'portfolio_stocks' table
--- INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity) VALUES
-('Apple Inc.', 1, 1, 10),
-('Alphabet Inc.', 1, 2, 5);
-
--- Insert data into the 'transactions' table
--- INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, quantity) VALUES
-(1, 1, 'AAPL', 'buy', 10),
-(1, 2, 'GOOGL', 'buy', 5);
