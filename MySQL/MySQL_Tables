@@ -19,6 +19,7 @@ create table portfolio_stocks (
     portfolio_id int,
     stock_id int,
     quantity int,
+    cost DECIMAL(15, 2) NOT NULL,
     foreign key (stock_id) references stocks(id),
     foreign key (portfolio_id) references portfolio(id),
 	unique (portfolio_id, stock_id)

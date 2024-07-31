@@ -54,6 +54,8 @@ def get_portfolio():
     """
     transactions = execute_query(transaction_query, (1,))
 
+
+
     return render_template('portfolio.html', user_name=user_name, email=email,
                            balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
                            stocks_can_buy=stocks_can_buy, transactions=transactions)
