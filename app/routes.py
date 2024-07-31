@@ -198,7 +198,7 @@ def sell_status():
 
 
 # Define the search stock route
-# sample url = /api/search-stock/id=?
+# sample url = /api/fetch-stock?id=1
 @app.route('/api/fetch-stock', methods=['GET'])
 def search_stock():
     stock_id = request.args.get('id')
@@ -218,6 +218,6 @@ def search_stock():
     stocks = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))
     stock_quantity = stocks[0]['quantity'] if stocks else 0
 
-    return jsonify('stock.html', stock_name=stock_name, symbol=symbol, stock_detail=stock_detail,
+    return render_template('stock.html', stock_name=stock_name, symbol=symbol, stock_detail=stock_detail,
                            historical_prices=historical_prices, stock_id=stock_id, stock_quantity=stock_quantity)
 
