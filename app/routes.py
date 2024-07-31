@@ -47,9 +47,16 @@ def get_portfolio():
     """
     stocks_can_buy = execute_query(stock_query)
 
+    transaction_query = """
+    select t.transaction_type, t.price, t.quantity, s.stock_name, s.symbol from transactions t
+    join stocks s on t.stock_id = s.id
+    where t.portfolio_id = %s
+    """
+    transactions = execute_query(transaction_query, (1,))
+
     return render_template('portfolio.html', user_name=user_name, email=email,
                            balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
-                           stocks_can_buy=stocks_can_buy)
+                           stocks_can_buy=stocks_can_buy, transactions=transactions)
 
 
 # Define the buy stock route
@@ -140,7 +147,7 @@ def sell_stock(portfolio_id):
 
         # Update the transaction table
         transaction_query = """INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity) 
-                VALUES (%s, %s, %s, 'buy', %s, %s)"""
+                VALUES (%s, %s, %s, 'sell', %s, %s)"""
 
         execute_query(transaction_query, (portfolio_id, stock_id, stock_symbol, stock_price, quantity))
 
