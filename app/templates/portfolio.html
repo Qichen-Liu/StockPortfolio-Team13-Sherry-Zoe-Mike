@@ -160,7 +160,7 @@
         }
 
 
-        .transaction-history {
+        .gain-lose {
             margin-top: 20px;
             width: 100%;
             background: #ececec;
@@ -169,7 +169,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .transaction-history p {
+        .gain-lose p {
             color: #333;
         }
 
@@ -196,9 +196,10 @@
             <p><strong>Name:</strong> {{ user_name }}</p>
             <p><strong>Email:</strong> {{ email }}</p>
             <p><strong>Balance:</strong> {{ balance }}</p>
-            <div class="transaction-history">
-                <h2>Transaction History</h2>
-                <p>Transaction details will go here.</p>
+            <div class="gain-lose">
+                <h2>Gainers & Losers</h2>
+                <p>Your Gainers:</p>
+                <p>Your Losers:</p>
             </div>
         </div>
         <div class="content">
@@ -236,39 +237,35 @@
                     {% endfor %}
                 </tbody>
             </table>
-
-
-        <!--
-            <h2>Stocks holding historical price</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Symbol</th>
-                        <th>Company</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stock in stocks_can_sell %}
-                    <tr>
-                        <td>{{ stock.symbol }}</td>
-                        <td>{{ stock.stock_name }}</td>
-                        <td>{{ stock.quantity }}</td>
-                        <td>{{ stock.last_30_days_prices }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        -->
-
-
             <div style="width:70%">
                 <h2>Stock Total Values Distribution</h2>
                 <canvas id="piechart"></canvas>
             </div>
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}"></script>
             
+            <h2>Transaction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Stock</th>
+                        <th>Symbol</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>{{ transaction.stock_name }}</td>
+                        <td>{{ transaction.symbol }}</td>
+                        <td>{{ transaction.quantity }}</td>
+                        <td>{{ transaction.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             <h2>Buy Stock</h2>
             <form action="/api/portfolio/1/buy" method="POST">
                 <label for="buy_stock_id">Stock:</label>
