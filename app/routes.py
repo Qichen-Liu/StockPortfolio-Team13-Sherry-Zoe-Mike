@@ -48,9 +48,8 @@ def get_portfolio():
     stocks_can_buy = execute_query(stock_query)
 
     transaction_query = """
-    select t.transaction_type, t.price, t.quantity, s.stock_name, s.symbol from transactions t
-    join stocks s on t.stock_id = s.id
-    where t.portfolio_id = %s
+    select transaction_type, price, quantity, symbol, symbol from transactions
+    where portfolio_id = %s
     """
     transactions = execute_query(transaction_query, (1,))
 

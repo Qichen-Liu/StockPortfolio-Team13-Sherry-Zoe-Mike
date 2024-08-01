@@ -18,6 +18,7 @@
             margin: 0;
             padding: 20px;
         }
+
         .navbar {
             width: 100%;
             background: linear-gradient(45deg, #af6666, #764b88);
@@ -27,6 +28,7 @@
             padding: 10px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         .navbar a {
             color: white;
             text-align: center;
@@ -37,13 +39,15 @@
             transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
             border-radius: 8px;
         }
+
         .navbar a:hover {
             background-color: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
         }
+
         .container {
             display: flex;
-            max-width: 10000px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 10px;
@@ -181,7 +185,6 @@
             margin-bottom: 20px;
         }
 
-
         .gain-lose {
             margin-top: 20px;
             width: 100%;
@@ -205,6 +208,15 @@
         .content:hover {
             transform: scale(1.01);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Add vertical scrolling to the transaction table */
+        .transaction-table-container {
+            max-height: 300px; /* Set the desired height for the container */
+            overflow-y: auto; /* Enable vertical scrolling */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -271,28 +283,32 @@
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}"></script>
             
             <h2>Transaction History</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Stock</th>
-                        <th>Symbol</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in transactions %}
-                    <tr>
-                        <td>{{ transaction.transaction_type }}</td>
-                        <td>{{ transaction.stock_name }}</td>
-                        <td>{{ transaction.symbol }}</td>
-                        <td>{{ transaction.quantity }}</td>
-                        <td>{{ transaction.price }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <script type="text/javascript">
+                var transactions = JSON.parse(`{{transactions|tojson}}`);
+            </script>
+            <div class="transaction-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Symbol</th>
+                            <th>Quantity</th>
+                            <th>Current Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.transaction_type }}</td>
+                            <td>{{ transaction.symbol }}</td>
+                            <td>{{ transaction.quantity }}</td>
+                            <td>{{ transaction.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
             <h2>Buy Stock</h2>
             <form action="/api/portfolio/1/buy" method="POST">
                 <label for="buy_stock_id">Stock:</label>
