@@ -14,30 +14,34 @@ def home():
 @app.route('/api/portfolio', methods=['GET'])
 def get_portfolio():
     query = """
-    select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id
+    select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
     from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
     join stocks s on ps.stock_id = s.id
     where p.id = 1
     """
     # Execute the query to obtain the result
     result = execute_query(query)
-    balance = result[0]['balance'] if result else 0
-    user_name = result[0]['user_name'] if result else ''
-    email = result[0]['email'] if result else ''
+    balance = result[0]['balance'] if result else 10000
+    user_name = result[0]['user_name'] if result else 'Mike Liu'
+    email = result[0]['email'] if result else 'random.rd@random.com'
 
     # Prepare stock data and current total value of the portfolio
     stock_hold = []
     total_value = 0.0
 
     for stock in result:
-
         last_30_days_prices = get_last_30_days_stock_prices(stock['symbol'])
+        avg_cost_per_share = float(stock['cost']) / stock['quantity']
+
+        percentage_change = (last_30_days_prices[0][1] - avg_cost_per_share) / avg_cost_per_share * 100
         stock_info = {
             'id': stock['id'],
             'stock_name': stock['stock_name'],
             'symbol': stock['symbol'],
             'quantity': stock['quantity'],
-            'last_30_days_prices': last_30_days_prices
+            'last_30_days_prices': last_30_days_prices,
+            'avg_cost_per_share': avg_cost_per_share,
+            'percent_gain_loss': "{:.4f}".format(percentage_change) + '%'
         }
         stock_hold.append(stock_info)
         total_value += stock['quantity'] * last_30_days_prices[0][1]
@@ -47,8 +51,9 @@ def get_portfolio():
     """
     stocks_can_buy = execute_query(stock_query)
 
+    # Directly select transactions from the database
     transaction_query = """
-    select transaction_type, price, quantity, symbol, symbol from transactions
+    select transaction_type, price, quantity, symbol, transaction_date from transactions 
     where portfolio_id = %s
     """
     transactions = execute_query(transaction_query, (1,))
@@ -96,12 +101,14 @@ def buy_stock(portfolio_id):
 
         execute_query(transaction_query, (portfolio_id, stock_id, stock_symbol, stock_price, quantity))
 
-        # Update the portfolio_stock table
+        # Update the portfolio_stock table with cost
         portfolio_stock_query = """
-        INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity) VALUES 
-        (%s, %s, %s, %s, %s) on duplicate key update quantity = quantity + values(quantity)
+        INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity, cost) VALUES 
+        (%s, %s, %s, %s, %s, %s) on duplicate key 
+        update quantity = quantity + values(quantity), cost = cost + values(cost)
         """
-        execute_query(portfolio_stock_query, (stock_name, stock_symbol, portfolio_id, stock_id, quantity))
+        execute_query(portfolio_stock_query,
+                      (stock_name, stock_symbol, portfolio_id, stock_id, quantity, quantity * stock_price))
 
         # Update the portfolio table
         portfolio_query = """
@@ -129,20 +136,19 @@ def sell_stock(portfolio_id):
 
         # check if we have enough stock to sell
         portfolio_stocks_query = """
-        select quantity, symbol from portfolio_stocks where portfolio_id = %s and stock_id = %s
+        select quantity, symbol, cost from portfolio_stocks where portfolio_id = %s and stock_id = %s
         """
         stocks = execute_query(portfolio_stocks_query, (portfolio_id, stock_id))
         stock_quantity = stocks[0]['quantity'] if stocks else 0
         stock_symbol = stocks[0]['symbol'] if stocks else ''
+        stock_cost = stocks[0]['cost'] if stocks else 0
 
-        print(stocks)
-        print("stock_quantity holds: ", stock_quantity)
-
+        # Check if we have enough stock to sell
         if stock_quantity < quantity:
             return jsonify({'error': 'Not enough stock to sell'}), 400
 
-        # Get the stock price
         stock_price = get_current_stock_price(stock_symbol)
+        print(f"stock_price in get current stock price: {stock_price}")
 
         # Update the transaction table
         transaction_query = """INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity) 
@@ -150,23 +156,17 @@ def sell_stock(portfolio_id):
 
         execute_query(transaction_query, (portfolio_id, stock_id, stock_symbol, stock_price, quantity))
 
-        # Get the stock
-        stock_query = """
-                        select stock_name, symbol from stocks where id = %s
-                        """
-        stock_info = execute_query(stock_query, (stock_id,))
-        stock_symbol = stock_info[0]['symbol']
-        print(f"stock_symbol: {stock_symbol}")
-        stock_price = get_current_stock_price(stock_symbol)
-        print(f"stock_price: {stock_price}")
-        stock_name = stock_info[0]['stock_name']
+        # Calculate the cost per share and the cost of the shares being sold
+        cost_per_share = stock_cost / stock_quantity
+        cost_of_sold_shares = cost_per_share * quantity
+        print(f"cost_per_share: {cost_per_share}, cost_of_sold_shares: {cost_of_sold_shares}")
 
-        # Update the portfolio_stock table
         portfolio_stock_query = """
-                INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity) VALUES 
-                (%s, %s, %s, %s, %s) on duplicate key update quantity = quantity - values(quantity)
-                """
-        execute_query(portfolio_stock_query, (stock_name, stock_symbol, portfolio_id, stock_id, quantity))
+        UPDATE portfolio_stocks SET quantity = quantity - %s, cost = cost - %s
+        WHERE portfolio_id = %s AND stock_id = %s
+        """
+
+        execute_query(portfolio_stock_query, (quantity, cost_of_sold_shares, portfolio_id, stock_id))
 
         # Remove the record if quantity becomes 0
         delete_query = """
@@ -227,3 +227,33 @@ def search_stock():
     return render_template('stock.html', stock_name=stock_name, symbol=symbol, stock_detail=stock_detail,
                            historical_prices=historical_prices, stock_id=stock_id, stock_quantity=stock_quantity)
 
+
+# Define the trade route
+@app.route('/api/trade', methods=['POST'])
+def trade():
+    stock_query = """
+        select id, stock_name, symbol from stocks
+        """
+    stocks_can_buy = execute_query(stock_query)
+
+    query = """
+        select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
+        from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
+        join stocks s on ps.stock_id = s.id
+        where p.id = 1
+        """
+    # Execute the query to obtain the result
+    result = execute_query(query)
+
+    # Prepare stock data and current total value of the portfolio
+    stock_hold = []
+    for stock in result:
+        stock_info = {
+            'id': stock['id'],
+            'stock_name': stock['stock_name'],
+            'symbol': stock['symbol'],
+            'quantity': stock['quantity']
+        }
+        stock_hold.append(stock_info)
+
+    return render_template('trade.html', stocks_can_buy=stocks_can_buy, stock_hold=stock_hold)

@@ -17,12 +17,16 @@ def get_last_30_days_stock_prices(symbol):
     return price_data
 
 def get_current_stock_price(symbol):
-    df = pd.read_csv(f"https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1=0&period2=9999999999&interval=1d&events=history&includeAdjustedClose=true",
-    parse_dates = ['Date'], index_col='Date')
-    most_recent_date = df.index[-1]
-    price = float(df.loc[most_recent_date]['Adj Close'])
+    try:
+        df = pd.read_csv(f"https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1=0&period2=9999999999&interval=1d&events=history&includeAdjustedClose=true",
+                         parse_dates=['Date'], index_col='Date')
+        most_recent_date = df.index[-1]
+        price = float(df.loc[most_recent_date]['Adj Close'])
+        return price
+    except Exception as e:
+        print(f"Error fetching stock price for {symbol}: {e}")
+        return None
 
-    return price
 
 def get_stock_data(symbol):
 
@@ -45,4 +49,3 @@ def get_stock_data(symbol):
         }
 
         return result
-
