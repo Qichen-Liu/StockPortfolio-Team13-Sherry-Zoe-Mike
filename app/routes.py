@@ -229,7 +229,7 @@ def search_stock():
 
 
 # Define the trade route
-@app.route('/api/trade', methods=['POST'])
+@app.route('/api/trade', methods=['GET'])
 def trade():
     stock_query = """
         select id, stock_name, symbol from stocks

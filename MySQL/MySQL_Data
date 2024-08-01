@@ -4,7 +4,7 @@ INSERT INTO stocks (symbol, stock_name) VALUES
 ('GOOGL', 'Alphabet Inc.'),
 ('AMZN', 'Amazon.com Inc.'),
 ('MSFT', 'Microsoft Corporation'),
-('FB', 'Facebook Inc.'),
+('META', 'Meta Inc.'),
 ('TSLA', 'Tesla Inc.');
 
 
