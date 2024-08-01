@@ -32,6 +32,8 @@ def get_portfolio():
     for stock in result:
         last_30_days_prices = get_last_30_days_stock_prices(stock['symbol'])
         avg_cost_per_share = float(stock['cost']) / stock['quantity']
+
+        percentage_change = (last_30_days_prices[0][1] - avg_cost_per_share) / avg_cost_per_share * 100
         stock_info = {
             'id': stock['id'],
             'stock_name': stock['stock_name'],
@@ -39,7 +41,7 @@ def get_portfolio():
             'quantity': stock['quantity'],
             'last_30_days_prices': last_30_days_prices,
             'avg_cost_per_share': avg_cost_per_share,
-            'percent_gain_loss': (last_30_days_prices[0][1] - avg_cost_per_share) / avg_cost_per_share * 100
+            'percent_gain_loss': "{:.4f}".format(percentage_change) + '%'
         }
         stock_hold.append(stock_info)
         total_value += stock['quantity'] * last_30_days_prices[0][1]
@@ -51,7 +53,7 @@ def get_portfolio():
 
     # Directly select transactions from the database
     transaction_query = """
-    select transaction_type, price, quantity, symbol from transactions 
+    select transaction_type, price, quantity, symbol, transaction_date from transactions 
     where portfolio_id = %s
     """
     transactions = execute_query(transaction_query, (1,))
@@ -59,6 +61,7 @@ def get_portfolio():
     return render_template('portfolio.html', user_name=user_name, email=email,
                            balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
                            stocks_can_buy=stocks_can_buy, transactions=transactions)
+
 
 # Define the buy stock route
 # url = /api/portfolio/<portfolio_id>/buy
