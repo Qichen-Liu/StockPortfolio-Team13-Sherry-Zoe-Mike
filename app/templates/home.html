@@ -107,6 +107,13 @@
       font-size: 16px;
       color: #333;
     }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 
@@ -121,12 +128,15 @@
       <h2>Meet the Team</h2>
       <div class="team-members">
         <div class="team-member">
+          <img src="{{ url_for('static', filename='zoe.png') }}" alt="Zoe Xiao" class="avatar">
           <h3>Zoe Xiao</h3>
         </div>
         <div class="team-member">
+          <img src="{{ url_for('static', filename='mike.png') }}" alt="Mike Liu" class="avatar">
           <h3>Mike Liu</h3>
         </div>
         <div class="team-member">
+          <img src="{{ url_for('static', filename='sherry.png') }}" alt="Sherry Lu" class="avatar">
           <h3>Sherry Lu</h3>
         </div>
       </div>
