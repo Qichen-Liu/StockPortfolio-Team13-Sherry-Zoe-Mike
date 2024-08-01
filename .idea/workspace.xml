@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="realtime price done&#10;&#10;30 days prices can be found at stock_can_sell.last_30_days_prices">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Tables" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Tables" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySQL/MySQL_Data" beforeDir="false" afterPath="$PROJECT_DIR$/MySQL/MySQL_Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/realtimePrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/realtimePrice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,15 +56,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.realtimePrice.executor&quot;: &quot;Run&quot;,
-    &quot;Python.routes.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.app.executor": "Run",
+    "Python.realtimePrice.executor": "Run",
+    "Python.routes.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\homework\app" />

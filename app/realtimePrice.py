@@ -45,4 +45,3 @@ def get_stock_data(symbol):
         }
 
         return result
-
