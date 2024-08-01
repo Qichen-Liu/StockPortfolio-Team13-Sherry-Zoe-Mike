@@ -56,12 +56,9 @@ def get_portfolio():
     """
     transactions = execute_query(transaction_query, (1,))
 
-    # return render_template('portfolio.html', user_name=user_name, email=email,
-    #                        balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
-    #                        stocks_can_buy=stocks_can_buy, transactions=transactions)
-
-    return jsonify({'stocks' : stock_hold})
-
+    return render_template('portfolio.html', user_name=user_name, email=email,
+                           balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
+                           stocks_can_buy=stocks_can_buy, transactions=transactions)
 
 # Define the buy stock route
 # url = /api/portfolio/<portfolio_id>/buy
@@ -226,3 +223,34 @@ def search_stock():
 
     return render_template('stock.html', stock_name=stock_name, symbol=symbol, stock_detail=stock_detail,
                            historical_prices=historical_prices, stock_id=stock_id, stock_quantity=stock_quantity)
+
+
+# Define the trade route
+@app.route('/api/trade', methods=['POST'])
+def trade():
+    stock_query = """
+        select id, stock_name, symbol from stocks
+        """
+    stocks_can_buy = execute_query(stock_query)
+
+    query = """
+        select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
+        from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
+        join stocks s on ps.stock_id = s.id
+        where p.id = 1
+        """
+    # Execute the query to obtain the result
+    result = execute_query(query)
+
+    # Prepare stock data and current total value of the portfolio
+    stock_hold = []
+    for stock in result:
+        stock_info = {
+            'id': stock['id'],
+            'stock_name': stock['stock_name'],
+            'symbol': stock['symbol'],
+            'quantity': stock['quantity']
+        }
+        stock_hold.append(stock_info)
+
+    return render_template('trade.html', stocks_can_buy=stocks_can_buy, stock_hold=stock_hold)
