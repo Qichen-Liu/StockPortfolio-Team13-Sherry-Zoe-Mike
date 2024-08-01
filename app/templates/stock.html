@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla Stock Price</title>
+    <title>{{ symbol }} Stock Price</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -17,13 +17,36 @@
             align-items: center;
             color: #333;
         }
+        .navbar {
+            width: 100%;
+            background: linear-gradient(45deg, #af6666, #764b88);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            border-radius: 8px;
+        }
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
         .container {
             background-color: #ececec;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-radius: 10px;
             overflow: hidden;
-            width: 90%;
-            max-width: 1000px;
+
+            max-width: 10000px;
             margin-top: 20px;
             padding: 20px;
             transition: box-shadow 0.3s ease-in-out;
@@ -107,15 +130,6 @@
             flex-direction: column;
             align-items: center;
         }
-        footer {
-            background-color: #1a202c;
-            color: white;
-            padding: 1em;
-            text-align: center;
-            width: 100%;
-            margin-top: 20px;
-            border-radius: 0 0 10px 10px;
-        }
         @media (max-width: 600px) {
             .container {
                 width: 100%;
@@ -127,9 +141,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <nav class="navbar">
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="/api/portfolio">Portfolio</a>
+        <a href="/api/trade">Trade</a>
+    </nav>
     <div class="container">
         <header>
-            <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" alt="Tesla Logo"> -->
             <h1>{{ symbol }}</h1>
         </header>
         <div class="stock-info">
@@ -172,7 +190,6 @@
 
         document.getElementById('52-week-low').innerText = `${minValue}`;
         document.getElementById('52-week-high').innerText = `${maxValue}`;
-
 
         function updateStockPrice() {
             const latestData = stockData[0];
