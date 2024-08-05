@@ -31,9 +31,10 @@ This project is a simple project that demonstrates the use of Restful API. The p
 │   │   ├── stock.html
 │   │   ├── tesla.html
 │   │   └── trade.html
+│   ├── helpers/
+│   │   ├── realtimePrice.py
+│   │   └── databaseHelper.py
 │   ├── __init__.py
-│   ├── databaseHelper.py
-│   ├── realtimePrice.py
 │   └── routes.py
 ├── MySQL/
 │   ├── MySQL_Data/
