@@ -5,25 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Status</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
         .message {
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
+
         .success {
             background-color: #d4edda;
             color: #155724;
         }
+
         .error {
             background-color: #f8d7da;
             color: #721c24;
         }
+
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -35,11 +49,18 @@
             border-radius: 5px;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -47,6 +68,7 @@
     <div class="message {{ status }}">
         <p>{{ message }}</p>
         <a href="/api/portfolio" class="button">Back to Portfolio</a>
+        <a href="/api/trade" class="button">Back to Trade</a>
     </div>
 </body>
 </html>

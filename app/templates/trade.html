@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background: linear-gradient(45deg, #af6666, #764b88);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            border-radius: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .header-container {
+            width: 100%;
+            background-color: #764b88;
+            padding: 20px 0;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .header-container h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: #af6666;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        select, input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s ease-in-out;
+            box-sizing: border-box;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #764b88;
+            outline: none;
+        }
+
+        button {
+            background-color: #764b88;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+
+        button i {
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: #af6666;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="/api/portfolio">Portfolio</a>
+        <a href="/api/trade">Trade</a>
+    </nav>
+    <div class="header-container">
+        <h1>Trade Stocks</h1>
+    </div>
+    <div class="container">
+        <h2>Buy Stock</h2>
+        <form action="/api/portfolio/1/buy" method="POST">
+            <label for="buy_stock_id">Stock:</label>
+            <select id="buy_stock_id" name="stock_id" required>
+                <option value="" disabled selected>Select stock to buy</option>
+                {% for stock in stocks_can_buy %}
+                <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                {% endfor %}
+            </select>
+            <label for="buy_quantity">Quantity:</label>
+            <input type="text" id="buy_quantity" name="quantity" required>
+            <button type="submit"><i class="fas fa-shopping-cart"></i> Buy</button>
+        </form>
+
+        <h2>Sell Stock</h2>
+        <form action="/api/portfolio/1/sell" method="POST">
+            <label for="sell_stock_id">Stock:</label>
+            <select id="sell_stock_id" name="stock_id" required>
+                <option value="" disabled selected>Select stock to sell</option>
+                {% for stock in stock_hold %}
+                <option value="{{ stock.id }}">{{stock.id}} - {{ stock.symbol }} - {{ stock.stock_name }}</option>
+                {% endfor %}
+            </select>
+            <label for="sell_quantity">Quantity:</label>
+            <input type="text" id="sell_quantity" name="quantity" required>
+            <button type="submit"><i class="fas fa-dollar-sign"></i> Sell</button>
+        </form>
+    </div>
+</body>
+</html>
