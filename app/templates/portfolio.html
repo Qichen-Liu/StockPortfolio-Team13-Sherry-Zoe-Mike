@@ -302,8 +302,8 @@
                         <td><a href="/api/fetch-stock?id={{ stock.id }}">{{ stock.symbol }}</a></td>
                         <td>{{ stock.stock_name }}</td>
                         <td>{{ stock.quantity }}</td>
-                        <td>{{ stock.last_30_days_prices[0][1] }}</td>
-                        <td>{{ stock.avg_cost_per_share }}</td>
+                        <td>{{ stock.last_30_days_prices[0][1] | round(2) }}</td>
+                        <td>{{ stock.avg_cost_per_share | round(2) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

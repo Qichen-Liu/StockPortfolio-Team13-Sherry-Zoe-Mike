@@ -6,18 +6,39 @@
   <title>Portfolio App</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-      background-attachment: fixed;
+    .navbar {
+            width: 100%;
+            background: linear-gradient(45deg, #af6666, #764b88);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    .navbar a {
+        color: white;
+        text-align: center;
+        padding: 12px 20px;
+        text-decoration: none;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        border-radius: 8px;
     }
-
+    .navbar a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+    }
+    body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
     .container {
       text-align: center;
       background: white;
@@ -118,6 +139,11 @@
 </head>
 
 <body>
+  <nav class="navbar">
+    <a href="http://127.0.0.1:5000/">Home</a>
+    <a href="/api/portfolio">Portfolio</a>
+    <a href="/api/trade">Trade</a>
+</nav>
   <div class="container">
     <h1>Welcome to the Ultimate Portfolio App!</h1>
     <div class="intro">
