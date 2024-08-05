@@ -198,6 +198,11 @@
             color: #333;
         }
 
+        ul {
+            list-style-position: inside;
+             padding-left: 0;
+        }
+
         /* Add hover effects for interactivity */
         .sidebar,
         .content {
@@ -236,10 +241,38 @@
             <p><strong>Email:</strong> {{ email }}</p>
             <p><strong>Balance:</strong> {{ balance }}</p>
             <div class="gain-lose">
-                <h2>Gainers & Losers</h2>
-                <p>Your Gainers:</p>
-                <p>Your Losers:</p>
+                <h2>Performance</h2>
+                <h3>Gainers</h3>
+                <ul id="gainers-list"></ul>
+                <h3>Losers</h3>
+                <ul id="losers-list"></ul>
             </div>
+
+            <script type="text/javascript">
+                var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
+                var transactions = JSON.parse(`{{transactions|tojson}}`);
+            </script>
+
+            <script type="text/javascript">
+                var gainersList = document.getElementById("gainers-list");
+                var losersList = document.getElementById("losers-list");
+
+                stocks_can_sell.forEach(stock => {
+                    var listItem = document.createElement("li");
+                    var percentSpan = document.createElement("span");
+                    percentSpan.textContent = `${stock.percent_gain_loss}`;
+                    percentSpan.style.color = stock.percent_gain_loss[0] == '-' ? '#ba1b4c' : '#1b6cba';
+                    listItem.textContent = `${stock.symbol}: `;
+                    listItem.appendChild(percentSpan);
+
+                    if (stock.percent_gain_loss[0] == '-') {
+                        losersList.appendChild(listItem);
+                    } else {
+                        gainersList.appendChild(listItem);
+                    }
+                });
+            </script>
+
         </div>
         <div class="content">
             <h1>Portfolio Manager</h1>
@@ -249,9 +282,6 @@
                 <h3>Last 30 Days</h3>
                 <canvas id="linechart"></canvas>
             </div>
-            <script type="text/javascript">
-                var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
-            </script>
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'linechart.js'}}"></script>
 
             <h2>Stocks Owned & Total Value</h2>
@@ -262,7 +292,8 @@
                         <th>Symbol</th>
                         <th>Company</th>
                         <th>Quantity</th>
-                        <th>Price</th>
+                        <th>Current Price</th>
+                        <th>Average Price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -272,37 +303,38 @@
                         <td>{{ stock.stock_name }}</td>
                         <td>{{ stock.quantity }}</td>
                         <td>{{ stock.last_30_days_prices[0][1] }}</td>
+                        <td>{{ stock.avg_cost_per_share }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div style="width:50%">
-                <h2>Stock Total Values Distribution</h2>
+            <h2>Stock Total Values Distribution</h2>
+            <div style="width:70%">
                 <canvas id="piechart"></canvas>
             </div>
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'piechart.js'}}"></script>
             
             <h2>Transaction History</h2>
-            <script type="text/javascript">
-                var transactions = JSON.parse(`{{transactions|tojson}}`);
-            </script>
+            
             <div class="transaction-table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Type</th>
                             <th>Symbol</th>
                             <th>Quantity</th>
-                            <th>Current Price</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for transaction in transactions %}
                         <tr>
-                            <td>{{ transaction.transaction_type }}</td>
                             <td>{{ transaction.symbol }}</td>
                             <td>{{ transaction.quantity }}</td>
                             <td>{{ transaction.price }}</td>
+                            <td>{{ transaction.transaction_type }}</td>
+                            <td>{{ transaction.transaction_date }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

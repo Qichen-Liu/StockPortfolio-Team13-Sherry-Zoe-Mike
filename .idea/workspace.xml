@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="realtime price done&#10;&#10;30 days prices can be found at stock_can_sell.last_30_days_prices" />
+    <list default="true" id="ac359b92-6501-4352-ae5d-195d7408f3fa" name="Changes" comment="realtime price done&#10;&#10;30 days prices can be found at stock_can_sell.last_30_days_prices">
+      <change beforePath="$PROJECT_DIR$/app/databaseHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers/databaseHelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/realtimePrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers/realtimePrice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/amazon.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/tesla.html" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
