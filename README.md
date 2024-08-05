@@ -10,23 +10,38 @@ This project is a simple project that demonstrates the use of Restful API. The p
 # Project Structure
 
 ```
-.
+./
 ├── .venv/
 ├── app/
+│   ├── static/
+│   │   ├── scripts/
+│   │   │   ├── linechart.js
+│   │   │   └── piechart.js
+│   │   └── images/
+│   │       ├── mike.png
+│   │       ├── sherry.png
+│   │       ├── user.jpg
+│   │       └── zoe.png
+│   ├── templates/
+│   │   ├── buyStatus.html
+│   │   ├── home.html
+│   │   ├── portfolio.html
+│   │   ├── sellStatus.html
+│   │   ├── stock.html
+│   │   └── trade.html
+│   ├── helpers/
+│   │   ├── realtimePrice.py
+│   │   └── databaseHelper.py
 │   ├── __init__.py
-│   ├── routes.py
-│   └── template/
-│       ├── home.html
-│       ├── portfolio.html
-│       ├── buyStatus.html
-│       └── sellStatus.html
-├── run.py
+│   └── routes.py
 ├── MySQL/
-│   ├── table.sql
-│   └── data.sql
-└── requirements.txt
+│   ├── MySQL_Data/
+│   └── MySQL_Tables/
+├── requirements.txt
+└── run.py
 ```
-![Blank diagram (4)](https://github.com/user-attachments/assets/f0ac8743-489e-4070-bcac-5b287535e2c1)
+![Blank diagram](https://github.com/user-attachments/assets/9d1aabf2-5537-4866-9640-7879528e1474)
+
 # Run Project
 ```
 pip install -r requirements.txt   // install required packages
@@ -60,6 +75,7 @@ This table links stocks to specific portfolios, tracking the quantity of each st
 - **`portfolio_id`**: Integer, foreign key referencing `portfolio(id)`.
 - **`stock_id`**: Integer, foreign key referencing `stocks(id)`.
 - **`quantity`**: Integer. The amount of the stock held in the portfolio.
+- **`cost`**: Decimal(15, 2). The total cost of a kind of stocks.
 - **Unique**: `(portfolio_id, stock_id)` ensures that a stock can only appear once per portfolio.
 
 ### `transactions` Table
