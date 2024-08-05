@@ -23,13 +23,11 @@ This project is a simple project that demonstrates the use of Restful API. The p
 │   │       ├── user.jpg
 │   │       └── zoe.png
 │   ├── templates/
-│   │   ├── amazon.html
 │   │   ├── buyStatus.html
 │   │   ├── home.html
 │   │   ├── portfolio.html
 │   │   ├── sellStatus.html
 │   │   ├── stock.html
-│   │   ├── tesla.html
 │   │   └── trade.html
 │   ├── helpers/
 │   │   ├── realtimePrice.py
@@ -42,7 +40,7 @@ This project is a simple project that demonstrates the use of Restful API. The p
 ├── requirements.txt
 └── run.py
 ```
-
+![Blank diagram (4)](https://github.com/user-attachments/assets/f0ac8743-489e-4070-bcac-5b287535e2c1)
 # Run Project
 ```
 pip install -r requirements.txt   // install required packages
