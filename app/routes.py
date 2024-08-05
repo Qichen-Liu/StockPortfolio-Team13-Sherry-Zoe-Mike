@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, jsonify, redirect, url_for
-from app.databaseHelper import execute_query
-from app.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices, get_stock_data
+from app.helpers.databaseHelper import execute_query
+from app.helpers.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices, get_stock_data
 
 
 # Define the home route
