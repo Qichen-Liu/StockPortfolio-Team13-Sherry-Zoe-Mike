@@ -39,12 +39,8 @@ This project is a simple project that demonstrates the use of Restful API. The p
 ├── MySQL/
 │   ├── MySQL_Data/
 │   └── MySQL_Tables/
-├── LICENSE
-├── README.md
 ├── requirements.txt
 └── run.py
-└── External Libraries/
-└── Scratches and Consoles/
 ```
 
 # Run Project
