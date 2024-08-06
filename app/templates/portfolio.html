@@ -135,6 +135,7 @@
 
         form {
             margin-bottom: 20px;
+            text-align: center; /* Center the form */
         }
 
         label {
@@ -146,7 +147,7 @@
 
         input[type="text"],
         select {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -166,6 +167,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto; /* Center the button */
         }
 
         button i {
@@ -240,6 +242,11 @@
             <p><strong>Name:</strong> {{ user_name }}</p>
             <p><strong>Email:</strong> {{ email }}</p>
             <p><strong>Balance:</strong> {{ balance }}</p>
+            <form id="balance-form">
+                <label for="new-balance">Update Balance:</label>
+                <input type="text" inputmode="numeric" pattern="[0-9\s]+" placeholder="Please input number" id="balance" name="balance" required>
+                <button type="submit">Update Balance</button>
+            </form>
             <div class="gain-lose">
                 <h2>Performance</h2>
                 <h3>Gainers</h3>
@@ -251,9 +258,7 @@
             <script type="text/javascript">
                 var stocks_can_sell = JSON.parse(`{{stocks_can_sell|tojson}}`);
                 var transactions = JSON.parse(`{{transactions|tojson}}`);
-            </script>
 
-            <script type="text/javascript">
                 var gainersList = document.getElementById("gainers-list");
                 var losersList = document.getElementById("losers-list");
 
@@ -271,6 +276,22 @@
                         gainersList.appendChild(listItem);
                     }
                 });
+
+                document.getElementById('balance-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    submitForm('/api/adjust-balance', new FormData(this));
+                });
+
+                function submitForm(url, formData) {
+                    fetch(url, {
+                        method: 'PUT',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        location.reload(); // Reload the page to reflect the updated balance
+                    })
+                };
             </script>
 
         </div>
