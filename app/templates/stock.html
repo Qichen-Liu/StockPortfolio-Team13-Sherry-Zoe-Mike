@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ symbol }} Stock Price</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Nunito', sans-serif;
             background-color: #f7f9fc;
             margin: 0;
             padding: 0;
@@ -162,11 +163,11 @@
             </div>
             <div class="info-item">
                 <span class="label">Day's High ($)</span>
-                <span id="days-high">{{ stock_detail['high'] }}</span>
+                <span id="days-high">{{ stock_detail['high'] | round(2) }}</span>
             </div>
             <div class="info-item">
                 <span class="label">Day's Low ($)</span>
-                <span id="days-low">{{ stock_detail['high'] }}</span>
+                <span id="days-low">{{ stock_detail['high'] | round(2) }}</span>
             </div>
             <div class="info-item">
                 <span class="label">30 Day High ($)</span>
@@ -185,8 +186,8 @@
         const stockData = JSON.parse(`{{historical_prices|tojson}}`);
         const values = stockData.map(item => item[1]);
 
-        const minValue = Math.min(...values);
-        const maxValue = Math.max(...values);
+        const minValue = Math.min(...values).toFixed(2);
+        const maxValue = Math.max(...values).toFixed(2);
 
         document.getElementById('52-week-low').innerText = `${minValue}`;
         document.getElementById('52-week-high').innerText = `${maxValue}`;

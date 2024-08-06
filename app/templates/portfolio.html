@@ -97,7 +97,7 @@
         }
 
         .content p {
-            font-size: 16px;
+            font-size: 20px;
             margin: 5px 0;
             color: #333;
         }
@@ -285,7 +285,7 @@
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'linechart.js'}}"></script>
 
             <h2>Stocks Owned & Total Value</h2>
-            <p>Total Value: {{ total_value }}</p>
+            <p>Total Value: {{ total_value | round(2) }}</p>
             <table>
                 <thead>
                     <tr>
