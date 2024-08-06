@@ -93,7 +93,10 @@ def buy_stock(portfolio_id):
 
         stock_name = stock_info[0]['stock_name']
         if balance < quantity * stock_price:
-            return jsonify({'error': 'Not enough balance'}), 400
+            return jsonify({
+                'flag': 1,
+                'error': 'Not enough balance'
+            }), 400
 
         # Update the transaction table
         transaction_query = """INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity) 
@@ -116,10 +119,16 @@ def buy_stock(portfolio_id):
         """
         execute_query(portfolio_query, (quantity * stock_price, portfolio_id))
 
-        return redirect(url_for('buy_status', status='success', message='Stock bought successfully'))
+        return jsonify({
+            'flag': 0,
+            'message': 'Stock bought successfully'
+        }), 200
 
     except Exception as e:
-        return redirect(url_for('buy_status', status='error', message=str(e)))
+        return jsonify({
+            'flag': 1,
+            'error': str(e)
+        }), 500
 
 
 # Define the sell stock route
@@ -145,7 +154,10 @@ def sell_stock(portfolio_id):
 
         # Check if we have enough stock to sell
         if stock_quantity < quantity:
-            return jsonify({'error': 'Not enough stock to sell'}), 400
+            return jsonify({
+                'flag': 1,
+                'error': 'Not enough stock to sell'
+            }), 400
 
         stock_price = get_current_stock_price(stock_symbol)
         print(f"stock_price in get current stock price: {stock_price}")
@@ -181,26 +193,16 @@ def sell_stock(portfolio_id):
                 """
         execute_query(portfolio_query, (quantity * stock_price, portfolio_id))
 
-        return redirect(url_for('sell_status', status='success', message='Stock sold successfully'))
+        return jsonify({
+            'flag': 0,
+            'message': 'Stock sold successfully'
+        }), 200
 
     except Exception as e:
-        return redirect(url_for('sell_status', status='error', message=str(e)))
-
-
-# Define the buy status route
-@app.route('/api/buy-status', methods=['GET'])
-def buy_status():
-    status = request.args.get('status', 'error')
-    message = request.args.get('message', 'An unknown error occurred.')
-    return render_template('buyStatus.html', status=status, message=message)
-
-
-# Define the sell status route
-@app.route('/api/sell-status', methods=['GET'])
-def sell_status():
-    status = request.args.get('status', 'error')
-    message = request.args.get('message', 'An unknown error occurred.')
-    return render_template('sellStatus.html', status=status, message=message)
+        return jsonify({
+            'flag': 1,
+            'error': str(e)
+        }), 500
 
 
 # Define the search stock route
@@ -257,3 +259,17 @@ def trade():
         stock_hold.append(stock_info)
 
     return render_template('trade.html', stocks_can_buy=stocks_can_buy, stock_hold=stock_hold)
+
+
+# function to adjust balance
+@app.route('/api/adjust-balance', methods=['PUT'])
+def adjust_balance():
+    data = request.form
+    balance = data.get('balance')
+    portfolio_id = 1
+
+    query = """
+    update portfolio set balance = %s where id = %s
+    """
+    execute_query(query, (balance, portfolio_id))
+    return jsonify({'message': 'Balance updated successfully'})
