@@ -71,6 +71,12 @@ def buy_stock(portfolio_id):
     stock_id = data.get('stock_id')
     quantity = int(data.get('quantity'))
 
+    if quantity <= 0:
+        return jsonify({
+            'flag': 1,
+            'error': 'Quantity should be greater than 0'
+        }), 400
+
     print(f"buy stock_id: {stock_id}, quantity: {quantity}")
 
     try:
@@ -138,6 +144,12 @@ def sell_stock(portfolio_id):
     data = request.form
     stock_id = data.get('stock_id')
     quantity = int(data.get('quantity'))
+
+    if quantity <= 0:
+        return jsonify({
+            'flag': 1,
+            'error': 'Quantity should be greater than 0'
+        }), 400
 
     print(f"sell stock_id: {stock_id}, quantity: {quantity}")
 

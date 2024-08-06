@@ -23,10 +23,8 @@ This project is a simple project that demonstrates the use of Restful API. The p
 │   │       ├── user.jpg
 │   │       └── zoe.png
 │   ├── templates/
-│   │   ├── buyStatus.html
 │   │   ├── home.html
 │   │   ├── portfolio.html
-│   │   ├── sellStatus.html
 │   │   ├── stock.html
 │   │   └── trade.html
 │   ├── helpers/
@@ -112,20 +110,15 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **Method**: `POST`
 - **Description**: Processes a stock sale request. Checks if there is enough stock to sell, records the transaction, updates the portfolio's stock holdings, and adjusts the portfolio balance. Removes the stock entry if its quantity drops to zero. Redirects to the sell status page with success or error messages.
 
-### Buy Status
-- **Endpoint**: `/api/buy-status`
-- **Method**: `GET`
-- **Description**: Displays the status of a buy operation, showing success or error messages based on query parameters.
-
-### Sell Status
-- **Endpoint**: `/api/sell-status`
-- **Method**: `GET`
-- **Description**: Displays the status of a sell operation, showing success or error messages based on query parameters.
-
 ### Search Stock
 - **Endpoint**: `/api/fetch-stock`
 - **Method**: `GET`
 - **Description**: Retrieves detailed information about a stock by its ID. Includes stock name, symbol, historical prices for the last 30 days, and current stock data. Also shows the quantity of the stock currently held in the portfolio.
+
+### Update Balance
+- **Endpoint**: `/api/adjust-balance`
+- **Method**: `PUT`
+- **Description**: Updates the portfolio balance. Used for testing purposes.
 
 # Realtime Stock Price Helper Functions
 
