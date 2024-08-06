@@ -38,7 +38,7 @@ This project is a simple project that demonstrates the use of Restful API. The p
 ├── requirements.txt
 └── run.py
 ```
-![Blank diagram](https://github.com/user-attachments/assets/9d1aabf2-5537-4866-9640-7879528e1474)
+![Blank diagram](https://github.com/user-attachments/assets/249b8dbe-ed80-4d98-a858-7370ca478a4d)
 
 # Run Project
 ```
