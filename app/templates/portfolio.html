@@ -244,7 +244,7 @@
             <p><strong>Balance:</strong> {{ balance }}</p>
             <form id="balance-form">
                 <label for="new-balance">Update Balance:</label>
-                <input type="text" inputmode="numeric" pattern="[0-9\s]+" placeholder="Please input number" id="balance" name="balance" required>
+                <input type="text" inputmode="decimal" pattern="[0-9]*\.?[0-9]+" placeholder="Please input number" id="balance" name="balance" required>
                 <button type="submit">Update Balance</button>
             </form>
             <div class="gain-lose">
