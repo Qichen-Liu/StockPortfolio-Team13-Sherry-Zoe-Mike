@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, jsonify, redirect, url_for
+from flask import render_template, request, jsonify
 from app.helpers.databaseHelper import execute_query
 from app.helpers.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices, get_stock_data
 
@@ -21,8 +21,8 @@ def get_portfolio():
     """
     # Execute the query to obtain the result
     result = execute_query(query)
-    balance = result[0]['balance'] if result else 100000
-    total_balance = result[0]['total_balance'] if result else 100000
+    balance = result[0]['balance'] if result else 100000.00
+    total_balance = result[0]['total_balance'] if result else 100000.00
     user_name = result[0]['user_name'] if result else 'Mike Liu'
     email = result[0]['email'] if result else 'random.rd@random.com'
 
@@ -261,7 +261,7 @@ def trade():
     # Execute the query to obtain the result
     result = execute_query(query)
 
-    balance = result[0]['balance'] if result else 100000
+    balance = result[0]['balance'] if result else 100000.00
 
     # Prepare stock data and current total value of the portfolio
     stock_hold = []
