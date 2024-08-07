@@ -83,6 +83,9 @@
             color: #af6666;
             margin-top: 20px;
         }
+        h3 {
+            color: #af6666;
+        }
 
         form {
             display: flex;
@@ -191,6 +194,7 @@
         </div>
         <h2>Buy Stock</h2>
         <form id="buyForm">
+            <h3>Current balance: {{ balance }}</h3>
             <label for="buy_stock_id">Stock:</label>
             <select id="buy_stock_id" name="stock_id" required>
                 <option value="" disabled selected>Select stock to buy</option>
@@ -209,7 +213,7 @@
             <select id="sell_stock_id" name="stock_id" required>
                 <option value="" disabled selected>Select stock to sell</option>
                 {% for stock in stock_hold %}
-                <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }}</option>
+                <option value="{{ stock.id }}">{{ stock.symbol }} - {{ stock.stock_name }} - #hold: {{ stock['quantity']}}</option>
                 {% endfor %}
             </select>
             <label for="sell_quantity">Quantity:</label>
@@ -258,6 +262,10 @@
         function showModal(message) {
             document.getElementById('modalMessage').innerText = message;
             document.getElementById('messageModal').style.display = 'block';
+            setTimeout(() => {
+                closeModal();
+                window.location.reload(); // Refresh the page after closing the modal
+            }, 2000); // 2-second delay to allow users to read the message
         }
 
         function closeModal() {
@@ -267,6 +275,7 @@
         window.onclick = function(event) {
             if (event.target == document.getElementById('messageModal')) {
                 closeModal();
+                window.location.reload(); // Refresh the page when modal is closed by clicking outside
             }
         }
     </script>
