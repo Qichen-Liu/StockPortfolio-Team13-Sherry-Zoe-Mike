@@ -22,3 +22,4 @@ INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quanti
 INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity, transaction_date)
 VALUES (1, 1, 'AAPL', 'buy', 222.50, 3, '2024-07-31 15:50:52');
 
+165.91	184.07

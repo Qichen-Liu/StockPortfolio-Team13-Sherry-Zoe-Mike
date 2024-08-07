@@ -19,7 +19,7 @@ const line_chart_data = {
     labels: line_chart_labels.reverse(),
     datasets: [
         {
-            label: "Net Worth",
+            label: "Stock Evaluation",
             data: line_chart_datasets_data.reverse(),
             pointRadius: 5,
             pointHoverRadius: 15,
@@ -58,6 +58,6 @@ new Chart(
         }
       
     }
-    
+
 );
 

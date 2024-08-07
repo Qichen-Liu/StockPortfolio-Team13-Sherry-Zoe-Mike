@@ -241,12 +241,27 @@
             <h2>User Information</h2>
             <p><strong>Name:</strong> {{ user_name }}</p>
             <p><strong>Email:</strong> {{ email }}</p>
+            <script>
+                // Convert template variables to JavaScript numbers
+                let balance = parseFloat({{ balance|tojson }});
+                let totalValue = parseFloat({{ total_value|tojson }});
+
+                // Calculate current net worth
+                let currentNetWorth = balance + totalValue;
+
+                // Display the result in the HTML
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('net-worth').textContent = currentNetWorth.toFixed(2);
+                });
+            </script>
+            <p><strong>Current Net Worth:</strong> <span id="net-worth"></span></p>
+
             <p><strong>Balance:</strong> {{ balance }}</p>
-            <form id="balance-form">
+            <p><form id="balance-form">
                 <label for="new-balance">Update Balance:</label>
                 <input type="text" inputmode="decimal" pattern="[0-9]*\.?[0-9]+" placeholder="Please input number" id="balance" name="balance" required>
                 <button type="submit">Update Balance</button>
-            </form>
+            </form></p>
             <div class="gain-lose">
                 <h2>Performance</h2>
                 <h3>Gainers</h3>
@@ -299,7 +314,7 @@
             <h1>Portfolio Manager</h1>
             <p>Welcome to your professional Stocks App portfolio page!</p>
             <div class="net-worth-graph">
-                <h2>Net Worth</h2>
+                <h2>Stock Evaluation</h2>
                 <h3>Last 30 Days</h3>
                 <canvas id="linechart"></canvas>
             </div>
