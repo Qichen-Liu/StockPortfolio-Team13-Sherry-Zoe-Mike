@@ -62,7 +62,7 @@ This table maintains user portfolios.
 - **`user_name`**: Varchar(100), not null. The name of the user owning the portfolio.
 - **`email`**: Varchar(100), not null. The user's email address.
 - **`balance`**: Decimal(15, 2), not null. The current balance of the portfolio.
-- **`total_value`**: Decimal(15, 2), not null. The total value of the portfolio's stocks.
+- **`total_balance`**: Decimal(15, 2), not null. The total value of the portfolio's deposited cash.
 
 ### `portfolio_stocks` Table
 This table links stocks to specific portfolios, tracking the quantity of each stock in a portfolio.
