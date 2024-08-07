@@ -71,6 +71,12 @@ def buy_stock(portfolio_id):
     stock_id = data.get('stock_id')
     quantity = int(data.get('quantity'))
 
+    if quantity <= 0:
+        return jsonify({
+            'flag': 1,
+            'error': 'Quantity should be greater than 0'
+        }), 400
+
     print(f"buy stock_id: {stock_id}, quantity: {quantity}")
 
     try:
@@ -138,6 +144,12 @@ def sell_stock(portfolio_id):
     data = request.form
     stock_id = data.get('stock_id')
     quantity = int(data.get('quantity'))
+
+    if quantity <= 0:
+        return jsonify({
+            'flag': 1,
+            'error': 'Quantity should be greater than 0'
+        }), 400
 
     print(f"sell stock_id: {stock_id}, quantity: {quantity}")
 
@@ -265,11 +277,20 @@ def trade():
 @app.route('/api/adjust-balance', methods=['PUT'])
 def adjust_balance():
     data = request.form
-    balance = data.get('balance')
+    balance = float(data.get('balance'))
     portfolio_id = 1
+
+    if balance <= 0:
+        return jsonify({
+            'flag': 1,
+            'error': 'Balance should be greater than 0'
+        }), 400
 
     query = """
     update portfolio set balance = %s where id = %s
     """
     execute_query(query, (balance, portfolio_id))
-    return jsonify({'message': 'Balance updated successfully'})
+    return jsonify({
+        'flag': 0,
+        'message': 'Balance updated successfully'
+    }), 200

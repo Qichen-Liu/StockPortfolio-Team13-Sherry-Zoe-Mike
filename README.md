@@ -23,10 +23,8 @@ This project is a simple project that demonstrates the use of Restful API. The p
 │   │       ├── user.jpg
 │   │       └── zoe.png
 │   ├── templates/
-│   │   ├── buyStatus.html
 │   │   ├── home.html
 │   │   ├── portfolio.html
-│   │   ├── sellStatus.html
 │   │   ├── stock.html
 │   │   └── trade.html
 │   ├── helpers/
@@ -40,7 +38,7 @@ This project is a simple project that demonstrates the use of Restful API. The p
 ├── requirements.txt
 └── run.py
 ```
-![Blank diagram](https://github.com/user-attachments/assets/9d1aabf2-5537-4866-9640-7879528e1474)
+![Blank diagram](https://github.com/user-attachments/assets/ff80f75c-b52d-4bea-a58a-dec72e3caeda)
 
 # Run Project
 ```
@@ -112,20 +110,15 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **Method**: `POST`
 - **Description**: Processes a stock sale request. Checks if there is enough stock to sell, records the transaction, updates the portfolio's stock holdings, and adjusts the portfolio balance. Removes the stock entry if its quantity drops to zero. Redirects to the sell status page with success or error messages.
 
-### Buy Status
-- **Endpoint**: `/api/buy-status`
-- **Method**: `GET`
-- **Description**: Displays the status of a buy operation, showing success or error messages based on query parameters.
-
-### Sell Status
-- **Endpoint**: `/api/sell-status`
-- **Method**: `GET`
-- **Description**: Displays the status of a sell operation, showing success or error messages based on query parameters.
-
 ### Search Stock
 - **Endpoint**: `/api/fetch-stock`
 - **Method**: `GET`
 - **Description**: Retrieves detailed information about a stock by its ID. Includes stock name, symbol, historical prices for the last 30 days, and current stock data. Also shows the quantity of the stock currently held in the portfolio.
+
+### Update Balance
+- **Endpoint**: `/api/adjust-balance`
+- **Method**: `PUT`
+- **Description**: Updates the portfolio balance. Used for testing purposes.
 
 # Realtime Stock Price Helper Functions
 
