@@ -10,16 +10,4 @@ INSERT INTO stocks (symbol, stock_name) VALUES
 
 -- Insert data into the 'portfolio' table
 INSERT INTO portfolio (user_name, email, balance, total_value) VALUES
-('Mike Liu', 'random.rd@random.com', 10000.00, 0.00);
-
-
--- Insert data into the 'portfolio_stocks' table
-INSERT INTO portfolio_stocks (stock_name, symbol, portfolio_id, stock_id, quantity, cost) VALUES
-('Apple Inc.', 'AAPL', 1, 1, 3, 667.50);
-
-
--- Insert data into the 'transactions' table
-INSERT INTO transactions (portfolio_id, stock_id, symbol, transaction_type, price, quantity, transaction_date)
-VALUES (1, 1, 'AAPL', 'buy', 222.50, 3, '2024-07-31 15:50:52');
-
-165.91	184.07
+('BarkBanker', 'random.rd@random.com', 100000.00, 100000.00);
