@@ -280,7 +280,7 @@ def adjust_balance():
     balance = float(data.get('balance'))
     portfolio_id = 1
 
-    if balance <= 0:
+    if balance < 0:
         return jsonify({
             'flag': 1,
             'error': 'Balance should be greater than 0'

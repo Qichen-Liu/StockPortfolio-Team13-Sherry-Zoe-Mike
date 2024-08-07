@@ -199,7 +199,7 @@
                 {% endfor %}
             </select>
             <label for="buy_quantity">Quantity:</label>
-            <input type="text" inputmode="numeric" pattern="[1-9\s]+" placeholder="Please input postive number" id="buy_quantity" name="quantity" required>
+            <input type="text" inputmode="numeric" pattern="\d+" placeholder="Please input positive number" id="buy_quantity" name="quantity" required>
             <button type="submit"><i class="fas fa-shopping-cart"></i> Buy</button>
         </form>
 
@@ -213,7 +213,7 @@
                 {% endfor %}
             </select>
             <label for="sell_quantity">Quantity:</label>
-            <input type="text" inputmode="numeric" pattern="[1-9\s]+" placeholder="Please input positive number" id="sell_quantity" name="quantity" required>
+            <input type="text" inputmode="numeric" pattern="\d+" placeholder="Please input positive number" id="sell_quantity" name="quantity" required>
             <button type="submit"><i class="fas fa-dollar-sign"></i> Sell</button>
         </form>
     </div>
