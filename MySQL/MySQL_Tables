@@ -9,7 +9,7 @@ create table portfolio (
     user_name varchar(100) not null,
     email varchar(100) not null,
     balance decimal(15, 2) not null,
-    total_value decimal(15, 2) not null
+    total_balance decimal(15, 2) not null
 );
 
 create table portfolio_stocks (
