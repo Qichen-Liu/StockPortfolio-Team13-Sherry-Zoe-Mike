@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, jsonify, redirect, url_for
+from flask import render_template, request, jsonify
 from app.helpers.databaseHelper import execute_query
 from app.helpers.realtimePrice import get_current_stock_price, get_last_30_days_stock_prices, get_stock_data
 
@@ -14,16 +14,21 @@ def home():
 @app.route('/api/portfolio', methods=['GET'])
 def get_portfolio():
     query = """
-    select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
+    select p.user_name, p.email, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
     from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
     join stocks s on ps.stock_id = s.id
     where p.id = 1
     """
     # Execute the query to obtain the result
     result = execute_query(query)
-    balance = result[0]['balance'] if result else 10000
     user_name = result[0]['user_name'] if result else 'Mike Liu'
     email = result[0]['email'] if result else 'random.rd@random.com'
+
+    balance_query = """
+    select balance, total_balance from portfolio where id = 1
+    """
+    balance = execute_query(balance_query)[0]['balance']
+    total_balance = execute_query(balance_query)[0]['total_balance']
 
     # Prepare stock data and current total value of the portfolio
     stock_hold = []
@@ -59,7 +64,7 @@ def get_portfolio():
     transactions = execute_query(transaction_query, (1,))
 
     return render_template('portfolio.html', user_name=user_name, email=email,
-                           balance=balance, total_value=total_value, stocks_can_sell=stock_hold,
+                           balance=balance, total_balance=total_balance, total_value=total_value, stocks_can_sell=stock_hold,
                            stocks_can_buy=stocks_can_buy, transactions=transactions)
 
 
@@ -244,6 +249,7 @@ def search_stock():
 
 # Define the trade route
 @app.route('/api/trade', methods=['GET'])
+# TODO: Add quantity and balance
 def trade():
     stock_query = """
         select id, stock_name, symbol from stocks
@@ -251,13 +257,15 @@ def trade():
     stocks_can_buy = execute_query(stock_query)
 
     query = """
-        select p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
+        select p.balance, p.user_name, p.email, p.balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
         from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
         join stocks s on ps.stock_id = s.id
         where p.id = 1
         """
     # Execute the query to obtain the result
     result = execute_query(query)
+
+    balance = result[0]['balance'] if result else 100000.00
 
     # Prepare stock data and current total value of the portfolio
     stock_hold = []
@@ -270,7 +278,7 @@ def trade():
         }
         stock_hold.append(stock_info)
 
-    return render_template('trade.html', stocks_can_buy=stocks_can_buy, stock_hold=stock_hold)
+    return render_template('trade.html', balance=balance, stocks_can_buy=stocks_can_buy, stock_hold=stock_hold)
 
 
 # function to adjust balance
@@ -287,10 +295,11 @@ def adjust_balance():
         }), 400
 
     query = """
-    update portfolio set balance = %s where id = %s
+    update portfolio set total_balance = total_balance + %s, balance = balance + %s where id = %s
     """
-    execute_query(query, (balance, portfolio_id))
+    execute_query(query, (balance, balance, portfolio_id))
     return jsonify({
         'flag': 0,
+        'Added_balance': balance,
         'message': 'Balance updated successfully'
     }), 200
