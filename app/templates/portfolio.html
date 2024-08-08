@@ -61,7 +61,7 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: left;
             position: relative;
         }
 
@@ -225,6 +225,12 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
+        .info-icon {
+            margin-left: 5px;
+            color: #8c7b75;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -260,9 +266,15 @@
                     document.getElementById('total-gain-loss').textContent = totalGainLoss.toFixed(2);
                 });
             </script>
-            <p><strong>Current Net Worth:</strong> <span id="net-worth"></span></p>
-            <p><strong>Current Balance:</strong> {{ balance }}</p>
-            <p><strong>Total Gain/Loss:</strong> <span id="total-gain-loss"></span></p>
+            <p><strong>Current Account Value:</strong> <span id="net-worth"></span>
+                <i class="fas fa-info-circle info-icon" title="Displays the total current value of your portfolio, which is the value of all your stock plus the cash balance."></i>
+            </p>
+            <p><strong>Current Cash Balance:</strong> {{ balance }}
+                <i class="fas fa-info-circle info-icon" title="Total amount of cash available for making trades."></i> 
+            </p>
+            <p><strong>Total Gain/Loss:</strong> <span id="total-gain-loss"></span>
+                <i class="fas fa-info-circle info-icon" title="Gains/losses as a result of today's market activity."></i> 
+            </p>
 
             <p><form id="balance-form">
                 <label for="new-balance">Add Balance:</label>
@@ -270,7 +282,7 @@
                 <button type="submit">Add Balance</button>
             </form></p>
 
-            <p><strong>Total Deposited: </strong> {{ total_balance }}</p>
+            <p><strong>Total Cash Deposited: </strong> {{ total_balance }}</p>
             
             <div class="gain-lose">
                 <h2>Performance</h2>
@@ -324,8 +336,9 @@
             <h1>Pawfolio Manager</h1>
             <p>Welcome to your "purr-fessional" stocks portfolio page!</p>
             <div class="net-worth-graph">
-                <h2>Stock Evaluation</h2>
-                <h3>Last 30 Days</h3>
+                <h2>Stock Evaluation
+                    <i class="fas fa-info-circle info-icon" title="This chart shows the total stock values in the last 30 days."></i>
+                </h2>
                 <canvas id="linechart"></canvas>
             </div>
             <script type="text/javascript" src="{{ url_for('static', filename='scripts/')}}{{'linechart.js'}}"></script>
