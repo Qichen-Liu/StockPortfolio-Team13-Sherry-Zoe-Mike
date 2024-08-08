@@ -14,17 +14,21 @@ def home():
 @app.route('/api/portfolio', methods=['GET'])
 def get_portfolio():
     query = """
-    select p.user_name, p.email, p.balance, p.total_balance, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
+    select p.user_name, p.email, s.symbol, s.stock_name, ps.quantity, s.id, ps.cost
     from portfolio p join portfolio_stocks ps on p.id = ps.portfolio_id
     join stocks s on ps.stock_id = s.id
     where p.id = 1
     """
     # Execute the query to obtain the result
     result = execute_query(query)
-    balance = result[0]['balance'] if result else 100000.00
-    total_balance = result[0]['total_balance'] if result else 100000.00
     user_name = result[0]['user_name'] if result else 'Mike Liu'
     email = result[0]['email'] if result else 'random.rd@random.com'
+
+    balance_query = """
+    select balance, total_balance from portfolio where id = 1
+    """
+    balance = execute_query(balance_query)[0]['balance']
+    total_balance = execute_query(balance_query)[0]['total_balance']
 
     # Prepare stock data and current total value of the portfolio
     stock_hold = []
