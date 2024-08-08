@@ -73,7 +73,7 @@ This table links stocks to specific portfolios, tracking the quantity of each st
 - **`portfolio_id`**: Integer, foreign key referencing `portfolio(id)`.
 - **`stock_id`**: Integer, foreign key referencing `stocks(id)`.
 - **`quantity`**: Integer. The amount of the stock held in the portfolio.
-- **`cost`**: Decimal(15, 2). The total cost of a kind of stocks.
+- **`cost`**: Decimal(15, 2). The average cost of a kind of stocks.
 - **Unique**: `(portfolio_id, stock_id)` ensures that a stock can only appear once per portfolio.
 
 ### `transactions` Table
