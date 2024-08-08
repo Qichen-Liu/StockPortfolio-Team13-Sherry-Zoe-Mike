@@ -110,7 +110,7 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **Method**: `POST`
 - **Description**: Processes a stock sale request. Checks if there is enough stock to sell, records the transaction, updates the portfolio's stock holdings, and adjusts the portfolio balance. Removes the stock entry if its quantity drops to zero. Redirects to the sell status page with success or error messages.
 
-### Search Stock
+### Fetch Stock
 - **Endpoint**: `/api/fetch-stock`
 - **Method**: `GET`
 - **Description**: Retrieves detailed information about a stock by its ID. Includes stock name, symbol, historical prices for the last 30 days, and current stock data. Also shows the quantity of the stock currently held in the portfolio.
