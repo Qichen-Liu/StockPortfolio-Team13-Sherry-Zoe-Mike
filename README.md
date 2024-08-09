@@ -65,7 +65,7 @@ This table maintains user portfolios.
 - **`total_balance`**: Decimal(15, 2), not null. The total value of the portfolio's deposited cash.
 
 ### `portfolio_stocks` Table
-This table links stocks to specific portfolios, tracking the quantity of each stock in a portfolio.
+This table links stocks to specific portfolios, tracking the quantity and cost of each stock in a portfolio.
 
 - **`id`**: Integer, auto-incremented primary key.
 - **`stock_name`**: Varchar(100), not null. The name of the stock (used for reference).
