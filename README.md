@@ -95,10 +95,15 @@ This table records transactions (buy/sell actions) related to stocks within port
 - **Method**: `GET`
 - **Description**: Renders the home page (`home.html`).
 
-### Get Portfolio
+### Portfolio Route
 - **Endpoint**: `/api/portfolio`
 - **Method**: `GET`
 - **Description**: Retrieves and displays the portfolio details for a hardcoded portfolio ID (1). Includes user information, portfolio balance, total value, and stock holdings with their recent 30-day price history. Also provides a list of stocks available for purchase.
+
+### Trade Route
+- **Endpoint**: `/api/trade`
+- **Method**: `GET`
+- **Description**: Renders the home page (`trade.html`).
 
 ### Buy Stock
 - **Endpoint**: `/api/portfolio/<portfolio_id>/buy`
